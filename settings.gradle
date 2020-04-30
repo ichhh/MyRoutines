@@ -1,0 +1,2 @@
+rootProject.name='My Routines'
+include ':app'
