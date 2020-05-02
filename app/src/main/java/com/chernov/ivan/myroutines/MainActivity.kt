@@ -5,10 +5,14 @@ import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.findNavController
+import com.chernov.ivan.myroutines.dummy.DummyContent
+import com.chernov.ivan.myroutines.list.ItemFragment
 
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteractionListener {
 
     //todo insert RV in second fragment
     //todo 1 put project to github
@@ -18,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
@@ -40,5 +45,14 @@ class MainActivity : AppCompatActivity() {
             R.id.action_settings -> true
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+//        TODO("Not yet implemented")
+
+        val args = Bundle()
+        args.putString("param1", "Selected")
+        args.putString("param2", item.toString())
+        findNavController(R.id.nav_host_fragment).navigate(R.id.action_SecondFragment_to_FirstFragment, args)
     }
 }
