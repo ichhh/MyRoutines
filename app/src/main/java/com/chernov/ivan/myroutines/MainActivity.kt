@@ -14,10 +14,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteractionListener {
 
-    //todo insert RV in second fragment
-    //todo 1 put project to github
-    //todo
-    //todo change FAB icon
+//todo add detailed fragment
+//todo add LivecyclerObserver
+//todo change FAB icon
+//todo • Restore state after orientation change
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,8 +52,8 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 //        TODO("Not yet implemented")
 
         val args = Bundle()
-        args.putString("param1", "Selected")
-        args.putString("param2", item.toString())
-        findNavController(R.id.nav_host_fragment).navigate(R.id.action_SecondFragment_to_FirstFragment, args)
+        args.putString("text1", "Selected")
+        args.putString("text2", item.toString())
+        findNavController(R.id.nav_host_fragment).navigate(R.id.action_itemFragment_to_detailedFragment, args)
     }
 }

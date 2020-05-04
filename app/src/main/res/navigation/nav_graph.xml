@@ -6,31 +6,26 @@
     app:startDestination="@id/itemFragment">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.chernov.ivan.myroutines.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
-
-        <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_itemFragment"
-            app:destination="@id/itemFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.chernov.ivan.myroutines.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
-
-        <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/itemFragment"
         android:name="com.chernov.ivan.myroutines.list.ItemFragment"
         android:label="fragment_item_list"
-        tools:layout="@layout/fragment_item_list" />
+        tools:layout="@layout/fragment_item_list" >
+        <action
+            android:id="@+id/action_itemFragment_to_detailedFragment"
+            app:destination="@id/detailedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailedFragment"
+        android:name="com.chernov.ivan.myroutines.DetailedFragment"
+        android:label="detailed_fragment"
+        tools:layout="@layout/detailed_fragment" >
+        <argument
+            android:name="test1"
+            app:argType="string"
+            android:defaultValue="test1" />
+        <argument
+            android:name="text2"
+            app:argType="string"
+            android:defaultValue="test2" />
+    </fragment>
 </navigation>
