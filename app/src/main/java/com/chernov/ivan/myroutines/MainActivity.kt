@@ -15,12 +15,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteractionListener {
 
-    //todo Safeargs
-    //todo data class
-    //todo name of params it action to Const
+    //--todo Safeargs
+    //--todo data class
 
-    //todo dataClass? program name, text
+    //todo data class to RV
+
+
+
     //todo prepare for Voice
+    //todo open a program by Voice
+    //todo read stuff
 
 
 //todo add LivecyclerObserver ???
