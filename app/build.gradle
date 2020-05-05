@@ -2,6 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
+//123
+apply plugin: 'androidx.navigation.safeargs'
+
 android {
     compileSdkVersion 28
 

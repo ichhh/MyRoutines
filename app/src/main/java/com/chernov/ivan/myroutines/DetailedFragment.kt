@@ -1,5 +1,6 @@
 package com.chernov.ivan.myroutines
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import kotlinx.android.synthetic.main.detailed_fragment.*
 
 
 class DetailedFragment : Fragment() {
@@ -17,13 +19,19 @@ class DetailedFragment : Fragment() {
 
     private lateinit var viewModel: DetailedViewModel
 
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.detailed_fragment, container, false)
         val tv = view.findViewById<TextView>(R.id.tv_detail)
-        tv.text = "${arguments?.getString("text1")} --- ${arguments?.getString("text2")}"
+
+        arguments?.let {
+            val args = DetailedFragmentArgs.fromBundle(it)
+            tv.text = "${args.test1}  ${args.text2}"
+        }
+
         return view
     }
 
