@@ -1,27 +1,30 @@
 package com.chernov.ivan.myroutines
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.chernov.ivan.myroutines.dummy.DummyContent
 import com.chernov.ivan.myroutines.list.ItemFragment
 import com.chernov.ivan.myroutines.list.ItemFragmentDirections
-
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteractionListener {
 
     //--todo Safeargs
     //--todo data class
+    //--todo choose build-in intent
+    //--todo tweack actions.xml
 
+    //todo impliment deep link //Define the urlTemplate in the format you define your deeplinks in AndroidManifest.xml
+
+    //todo rename to routine and steps
     //todo data class to RV
 
 
-
+//todo Android Tutorial: Convert Speech To Text | Speech Recognition
     //todo prepare for Voice
     //todo open a program by Voice
     //todo read stuff
@@ -30,7 +33,7 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 //todo add LivecyclerObserver ???
 //todo change FAB icon
 //todo • Restore state after orientation change
-
+//todo add mp3 to item
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +43,7 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
+                .setAction("Action", null).show()
         }
     }
 
@@ -64,7 +67,7 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 
         val action = ItemFragmentDirections.actionItemFragmentToDetailedFragment()
         action.test1 = "Selected2"
-        action.text2 = "1"+item.toString()
+        action.text2 = "1" + item.toString()
         findNavController(R.id.nav_host_fragment).navigate(action)
 
 
