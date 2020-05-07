@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 //todo • Restore state after orientation change
 //todo add mp3 to item
 
+    private val navController by lazy { findNavController(R.id.nav_host_fragment) } //1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
