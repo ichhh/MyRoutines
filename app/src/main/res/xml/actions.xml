@@ -15,7 +15,6 @@
             <parameter-mapping
                 intentParameter="exercise.name"
                 urlParameter="exerciseType" />
-
         </fulfillment>
 
     </action>

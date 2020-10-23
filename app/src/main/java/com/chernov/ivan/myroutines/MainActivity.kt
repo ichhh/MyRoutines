@@ -70,7 +70,8 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 
     override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
 
-        val action = ItemFragmentDirections.actionItemFragmentToDetailedFragment()
+        val action
+                = ItemFragmentDirections.actionItemFragmentToDetailedFragment()
         action.test1 = "Selected2"
         action.text2 = "1" + item.toString()
         navController.navigate(action)

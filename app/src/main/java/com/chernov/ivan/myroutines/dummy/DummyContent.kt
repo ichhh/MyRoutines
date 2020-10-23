@@ -1,7 +1,8 @@
 package com.chernov.ivan.myroutines.dummy
 
-import java.util.ArrayList
-import java.util.HashMap
+import com.chernov.ivan.myroutines.model.Program
+import com.chernov.ivan.myroutines.model.ProgramItem
+import java.util.*
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -11,34 +12,48 @@ import java.util.HashMap
  */
 object DummyContent {
 
-    /**
-     * An array of sample (dummy) items.
-     */
-    val ITEMS: MutableList<DummyItem> = ArrayList()
+    val PROGRAMS: MutableList<Program> = ArrayList()
 
+//    val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
 
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
-    val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
-
-    private val COUNT = 25
+    private val COUNT_ITMES = 25
+    private val COUNT_PROGRAM = 5
 
     init {
-        // Add some sample items.
-        for (i in 1..COUNT) {
-            addItem(createDummyItem(i))
+        for (i in 1..COUNT_PROGRAM) {
+            val itemsArrayList: MutableList<ProgramItem> = ArrayList()
+
+            for (i2 in 1..COUNT_ITMES) {
+                itemsArrayList.add(createDummyItem("$i _$i2"))
+//                addItem(itemsArrayList,createDummyItem(i))
+            }
+            PROGRAMS.add(Program(i.toString(),itemsArrayList))
+
+
         }
     }
 
-    private fun addItem(item: DummyItem) {
-        ITEMS.add(item)
-        ITEM_MAP.put(item.id, item)
+//    private fun addItem(itemsArrayList:MutableList<ProgramItem>, item: ProgramItem) {
+//        itemsArrayList.add(item)
+////        ITEM_MAP.put(item.id, item)
+//    }
+
+    //    private fun addProgram(program: Program) {
+//        PROGRAMS.add(program)
+////        ITEM_MAP.put(program.id, program)
+//    }
+    private fun createDummyProgram(
+        position: Int,
+        itemsArrayList: MutableList<ProgramItem>
+    ): Program {
+        return Program(position.toString(), itemsArrayList)
     }
 
-    private fun createDummyItem(position: Int): DummyItem {
-        return DummyItem(position.toString(), "Item " + position, makeDetails(position))
+    private fun createDummyItem(position: String): ProgramItem {
+        //return DummyItem(position.toString(), "Item " + position, makeDetails(position))
+        return ProgramItem("Name_$position")
     }
+
 
     private fun makeDetails(position: Int): String {
         val builder = StringBuilder()
@@ -55,4 +70,13 @@ object DummyContent {
     data class DummyItem(val id: String, val content: String, val details: String) {
         override fun toString(): String = content
     }
+
+    data class DummyProgram(
+        val id: String,
+        val name: String,
+        val itemsArray: MutableList<ProgramItem>
+    ) {
+        override fun toString(): String = name
+    }
+
 }
