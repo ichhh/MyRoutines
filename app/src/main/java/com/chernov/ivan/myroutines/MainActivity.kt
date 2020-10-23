@@ -35,6 +35,9 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 //todo • Restore state after orientation change
 //todo add mp3 to item
 
+    //todo In the Navigation component, you can initialize a ViewModel with a navigation graph scope. This means all the fragments in the same navigation graph and their parent Activity share the same ViewModel. + https://www.raywenderlich.com/4332831-navigation-component-for-android-part-2-graphs-and-deep-links
+
+
     private val navController by lazy { findNavController(R.id.nav_host_fragment) } //1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +73,7 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
         val action = ItemFragmentDirections.actionItemFragmentToDetailedFragment()
         action.test1 = "Selected2"
         action.text2 = "1" + item.toString()
-        findNavController(R.id.nav_host_fragment).navigate(action)
+        navController.navigate(action)
 
 
 //        val args = Bundle()
