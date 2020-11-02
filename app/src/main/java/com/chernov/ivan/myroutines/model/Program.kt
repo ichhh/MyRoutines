@@ -1,6 +1,6 @@
 package com.chernov.ivan.myroutines.model
 
-data class Program(val name:String, val itemsArray:Array<Item> ) {
+data class Program(val name:String, val itemsArray:Array<ProgramItem> ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false

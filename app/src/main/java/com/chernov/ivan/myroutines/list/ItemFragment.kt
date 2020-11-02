@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import com.chernov.ivan.myroutines.R
 
 import com.chernov.ivan.myroutines.dummy.DummyContent
-import com.chernov.ivan.myroutines.dummy.DummyContent.DummyItem
+import com.chernov.ivan.myroutines.model.ProgramItem
 
 /**
  * A fragment representing a list of Items.
@@ -85,7 +85,7 @@ class ItemFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: DummyItem?)
+        fun onListFragmentInteraction(item: ProgramItem?)
     }
 
     companion object {

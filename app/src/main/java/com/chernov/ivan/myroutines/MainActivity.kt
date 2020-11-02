@@ -8,6 +8,7 @@ import androidx.navigation.findNavController
 import com.chernov.ivan.myroutines.dummy.DummyContent
 import com.chernov.ivan.myroutines.list.ItemFragment
 import com.chernov.ivan.myroutines.list.ItemFragmentDirections
+import com.chernov.ivan.myroutines.model.ProgramItem
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
         }
     }
 
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+    override fun onListFragmentInteraction(item: ProgramItem?) {
 
         val action = ItemFragmentDirections.actionItemFragmentToDetailedFragment()
         action.test1 = "Selected2"
