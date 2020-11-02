@@ -8,10 +8,17 @@ import androidx.navigation.findNavController
 import com.chernov.ivan.myroutines.dummy.DummyContent
 import com.chernov.ivan.myroutines.list.ItemFragment
 import com.chernov.ivan.myroutines.list.ItemFragmentDirections
+import com.chernov.ivan.myroutines.list.ProgramFragment
+import com.chernov.ivan.myroutines.model.Program
+import com.chernov.ivan.myroutines.model.ProgramItem
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteractionListener {
+class MainActivity :
+    AppCompatActivity()
+    , ProgramFragment.OnListFragmentInteractionListener_program
+//    , ItemFragment.OnListFragmentInteractionListener_item
+{
 
     //--todo Safeargs
     //--todo data class
@@ -68,13 +75,13 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
         }
     }
 
-    override fun onListFragmentInteraction(item: DummyContent.DummyItem?) {
+    override fun onListFragmentInteraction_program(item: Program?) {
 
-        val action
-                = ItemFragmentDirections.actionItemFragmentToDetailedFragment()
-        action.test1 = "Selected2"
-        action.text2 = "1" + item.toString()
-        navController.navigate(action)
+//        val action
+//                = ItemFragmentDirections.actionItemFragmentToDetailedFragment()
+//        action.test1 = "Selected2"
+//        action.text2 = "1" + item.toString()
+//        navController.navigate(action)
 
 
 //        val args = Bundle()
@@ -82,5 +89,6 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 //        args.putString("text2", item.toString())
 //        findNavController(R.id.nav_host_fragment).navigate(R.id.action_itemFragment_to_detailedFragment, args)
     }
+
 }
 

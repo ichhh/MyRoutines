@@ -9,25 +9,25 @@ import android.widget.TextView
 
 import com.chernov.ivan.myroutines.list.ItemFragment.OnListFragmentInteractionListener_item
 import com.chernov.ivan.myroutines.R
-import com.chernov.ivan.myroutines.model.ProgramItem
+import com.chernov.ivan.myroutines.model.Program
+import kotlinx.android.synthetic.main.fragment_program.view.*
 
-import kotlinx.android.synthetic.main.fragment_item.view.*
+//import kotlinx.android.synthetic.main.fragment_item.view.*
 
 
-
-class MyItemRecyclerViewAdapter(
-    private val mValues: List<ProgramItem>,
-    private val mListenerItem: OnListFragmentInteractionListener_item?
-) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
+class MyProgramRecyclerViewAdapter(
+    private val mValues: List<Program>,
+    private val mListenerItem: ProgramFragment.OnListFragmentInteractionListener_program?
+) : RecyclerView.Adapter<MyProgramRecyclerViewAdapter.ViewHolder>() {
 
     private val mOnClickListener: View.OnClickListener
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as ProgramItem
+            val program = v.tag as Program
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
-            mListenerItem?.onListFragmentInteraction_item(item)
+            mListenerItem?.onListFragmentInteraction_program(program)
         }
     }
 
@@ -38,12 +38,12 @@ class MyItemRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = mValues[position]
-        holder.mIdView.text = item.id
-        holder.mContentView.text = item.name
+        val program = mValues[position]
+        holder.mIdView.text = program.id
+        holder.mContentView.text = program.name
 
         with(holder.mView) {
-            tag = item
+            tag = program
             setOnClickListener(mOnClickListener)
         }
     }
@@ -51,8 +51,8 @@ class MyItemRecyclerViewAdapter(
     override fun getItemCount(): Int = mValues.size
 
     inner class ViewHolder(val mView: View) : RecyclerView.ViewHolder(mView) {
-        val mIdView: TextView = mView.item_id
-        val mContentView: TextView = mView.item_name
+        val mIdView: TextView = mView.program_id
+        val mContentView: TextView = mView.program_name
 
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"

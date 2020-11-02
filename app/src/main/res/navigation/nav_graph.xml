@@ -28,4 +28,12 @@
             app:argType="string"
             android:defaultValue="test2" />
     </fragment>
+    <fragment
+        android:id="@+id/programFragment"
+        android:name="com.chernov.ivan.myroutines.list.ProgramFragment"
+        android:label="ProgramFragment" >
+        <action
+            android:id="@+id/action_programFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
+    </fragment>
 </navigation>

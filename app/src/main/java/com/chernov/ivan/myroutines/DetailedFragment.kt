@@ -1,13 +1,14 @@
 package com.chernov.ivan.myroutines
 
 import android.annotation.SuppressLint
-import androidx.lifecycle.ViewModelProviders
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.lifecycle.ViewModelProvider
 import kotlinx.android.synthetic.main.detailed_fragment.*
 
 
@@ -37,7 +38,9 @@ class DetailedFragment : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(DetailedViewModel::class.java)
+
+        viewModel = ViewModelProvider(this).get(DetailedViewModel::class.java)
+//        viewModel = ViewModelProviders.of(this).get(DetailedViewModel::class.java)
         // TODO: Use the ViewModel
     }
 

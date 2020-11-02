@@ -12,9 +12,10 @@ import java.util.*
  */
 object DummyContent {
 
-    val PROGRAMS: MutableList<Program> = ArrayList()
+    val PROGRAMS_LIST: MutableList<Program> = ArrayList()
 
-//    val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
+    //    val ITEM_MAP: MutableMap<String, DummyItem> = HashMap()
+    val PROGRAM_MAP: MutableMap<String, Program> = HashMap()
 
     private val COUNT_ITMES = 25
     private val COUNT_PROGRAM = 5
@@ -27,7 +28,9 @@ object DummyContent {
                 itemsArrayList.add(createDummyItem("$i _$i2"))
 //                addItem(itemsArrayList,createDummyItem(i))
             }
-            PROGRAMS.add(Program(i.toString(),itemsArrayList))
+            val program = Program(i.toString(),"name_$i", itemsArrayList)
+            PROGRAMS_LIST.add(program) //for recyclerView
+            PROGRAM_MAP.put(i.toString(), program) //for getting selected
 
 
         }
@@ -42,16 +45,16 @@ object DummyContent {
 //        PROGRAMS.add(program)
 ////        ITEM_MAP.put(program.id, program)
 //    }
-    private fun createDummyProgram(
-        position: Int,
-        itemsArrayList: MutableList<ProgramItem>
-    ): Program {
-        return Program(position.toString(), itemsArrayList)
-    }
+//    private fun createDummyProgram(
+//        position: Int,
+//        itemsArrayList: MutableList<ProgramItem>
+//    ): Program {
+//        return Program(position.toString(), itemsArrayList)
+//    }
 
     private fun createDummyItem(position: String): ProgramItem {
         //return DummyItem(position.toString(), "Item " + position, makeDetails(position))
-        return ProgramItem("Name_$position")
+        return ProgramItem(position,"Name_$position")
     }
 
 
@@ -64,19 +67,26 @@ object DummyContent {
         return builder.toString()
     }
 
+    fun getItemsOfProgram(programID: String): MutableList<ProgramItem> {
+        // TODO: 02.11.2020  non-null assertion
+        val emptyItemList:MutableList<ProgramItem> = arrayListOf()
+        return PROGRAM_MAP.get(programID)?.itemsArray ?:emptyItemList
+
+    }
+
     /**
      * A dummy item representing a piece of content.
      */
-    data class DummyItem(val id: String, val content: String, val details: String) {
-        override fun toString(): String = content
-    }
-
-    data class DummyProgram(
-        val id: String,
-        val name: String,
-        val itemsArray: MutableList<ProgramItem>
-    ) {
-        override fun toString(): String = name
-    }
+//    data class DummyItem(val id: String, val content: String, val details: String) {
+//        override fun toString(): String = content
+//    }
+//
+//    data class DummyProgram(
+//        val id: String,
+//        val name: String,
+//        val itemsArray: MutableList<ProgramItem>
+//    ) {
+//        override fun toString(): String = name
+//    }
 
 }

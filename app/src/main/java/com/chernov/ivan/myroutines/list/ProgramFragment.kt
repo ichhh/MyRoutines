@@ -12,21 +12,19 @@ import android.view.ViewGroup
 import com.chernov.ivan.myroutines.R
 
 import com.chernov.ivan.myroutines.dummy.DummyContent
-import com.chernov.ivan.myroutines.model.ProgramItem
-
-//import com.chernov.ivan.myroutines.dummy.DummyContent.DummyItem
+import com.chernov.ivan.myroutines.model.Program
 
 /**
  * A fragment representing a list of Items.
  * Activities containing this fragment MUST implement the
- * [ItemFragment.OnListFragmentInteractionListener_item] interface.
+ * [ProgramFragment.OnListFragmentInteractionListener_program] interface.
  */
-class ItemFragment(val programID:String) : Fragment() {
+class ProgramFragment : Fragment() {
 
     // TODO: 02.11.2020 Customize parameters
     private var columnCount = 1
 
-    private var listenerItem: OnListFragmentInteractionListener_item? = null
+    private var listener: OnListFragmentInteractionListener_program? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +38,7 @@ class ItemFragment(val programID:String) : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_program_list, container, false)
 
         // Set the adapter
         if (view is RecyclerView) {
@@ -50,11 +48,9 @@ class ItemFragment(val programID:String) : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter =
-                    MyItemRecyclerViewAdapter(
-//                        DummyContent.ITEMS
-                                DummyContent.getItemsOfProgram(programID)
-                        ,
-                        listenerItem
+                    MyProgramRecyclerViewAdapter(
+                        DummyContent.PROGRAMS_LIST,
+                        listener
                     )
             }
         }
@@ -63,16 +59,16 @@ class ItemFragment(val programID:String) : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (context is OnListFragmentInteractionListener_item) {
-            listenerItem = context
+        if (context is OnListFragmentInteractionListener_program) {
+            listener = context
         } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener")
+            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener_program")
         }
     }
 
     override fun onDetach() {
         super.onDetach()
-        listenerItem = null
+        listener = null
     }
 
     /**
@@ -86,9 +82,9 @@ class ItemFragment(val programID:String) : Fragment() {
      * [Communicating with Other Fragments](http://developer.android.com/training/basics/fragments/communicating.html)
      * for more information.
      */
-    interface OnListFragmentInteractionListener_item {
+    interface OnListFragmentInteractionListener_program {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction_item(item: ProgramItem?)
+        fun onListFragmentInteraction_program(item: Program?)
     }
 
     companion object {
@@ -98,8 +94,8 @@ class ItemFragment(val programID:String) : Fragment() {
 
         // TODO: Customize parameter initialization
         @JvmStatic
-        fun newInstance(programID: String, columnCount: Int) =
-            ItemFragment(programID).apply {
+        fun newInstance(columnCount: Int) =
+            ProgramFragment().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }

@@ -2,13 +2,13 @@
 <androidx.recyclerview.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/item_list"
-    android:name="com.chernov.ivan.myroutines.ItemFragment"
+    android:id="@+id/program_list"
+    android:name="com.chernov.ivan.myroutines.ProgramFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorAccent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
-    tools:context=".list.ItemFragment"
-    tools:listitem="@layout/fragment_item" />
+    tools:context=".list.ProgramFragment"
+    tools:listitem="@layout/fragment_program" />
