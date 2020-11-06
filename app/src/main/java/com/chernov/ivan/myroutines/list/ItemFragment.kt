@@ -49,7 +49,7 @@ class ItemFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter =
-                    MyItemRecyclerViewAdapter(
+                    ItemRecyclerViewAdapter(
                         DummyContent.ITEMS,
                         listener
                     )
