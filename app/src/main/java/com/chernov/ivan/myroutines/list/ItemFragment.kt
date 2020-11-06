@@ -50,7 +50,7 @@ class ItemFragment : Fragment() {
                 }
                 adapter =
                     ItemRecyclerViewAdapter(
-                        DummyContent.ITEMS,
+                        DummyContent.getItemsOfProgram(),
                         listener
                     )
             }
