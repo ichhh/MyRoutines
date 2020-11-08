@@ -5,7 +5,6 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import com.chernov.ivan.myroutines.dummy.DummyContent
 import com.chernov.ivan.myroutines.list.ItemFragment
 import com.chernov.ivan.myroutines.list.ItemFragmentDirections
 import com.chernov.ivan.myroutines.list.ProgramFragment
@@ -91,8 +90,9 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 //        TODO("VIEW MODEL")
 
         val action
-                = ProgramFragmentDirections.actionProgramFragmentToItemFragment()
-//        action.test1 = "Selected2"
+                = ProgramFragmentDirections.actionProgramFragmentToItemFragment(item!!.id)
+
+//        action.idProgram = program!!.id
 //        action.text2 = "1" + item.toString()
         navController.navigate(action)
     }

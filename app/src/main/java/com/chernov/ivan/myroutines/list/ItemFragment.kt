@@ -24,6 +24,9 @@ class ItemFragment : Fragment() {
 
     // TODO: Customize parameters
     private var columnCount = 1
+    private var  programID:String? = null
+
+
 
     private var listener: OnListFragmentInteractionListener? = null
 
@@ -48,11 +51,17 @@ class ItemFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
+
+                arguments?.let {
+                    val args = ItemFragmentArgs.fromBundle(it)
+                    programID = args.idProgram
+                }
+
                 adapter =
-                    ItemRecyclerViewAdapter(
-                        DummyContent.getItemsOfProgram(),
-                        listener
-                    )
+                    programID.let { ItemRecyclerViewAdapter(
+                        DummyContent.getItemsOfProgram(programID!!),
+                        listener) }
+
             }
         }
         return view
