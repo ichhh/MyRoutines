@@ -5,14 +5,14 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailedFragment">
+    tools:context=".EditorFragment">
 
     <TextView
         android:id="@+id/tv_detail"
         android:layout_width="360dp"
         android:layout_height="174dp"
-        android:text="Hello"
-        android:textSize="50dp"
+
+        android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

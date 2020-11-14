@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteractionListener, ProgramFragment.OnListFragmentInteractionListener_program {
 
     //--todo Safeargs
-    //--todo data class
     //--todo choose build-in intent
     //--todo tweack actions.xml
 

@@ -6,9 +6,12 @@
     android:name="com.chernov.ivan.myroutines.ProgramFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorAccent"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
+    android:background="@color/colorAccent"
+    android:clickable="true"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     app:layoutManager="LinearLayoutManager"
     tools:context=".list.ProgramFragment"
     tools:listitem="@layout/fragment_program" />

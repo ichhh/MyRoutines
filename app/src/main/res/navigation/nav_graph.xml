@@ -19,9 +19,9 @@
     </fragment>
     <fragment
         android:id="@+id/detailedFragment"
-        android:name="com.chernov.ivan.myroutines.DetailedFragment"
+        android:name="com.chernov.ivan.myroutines.EditorFragment"
         android:label="detailed_fragment"
-        tools:layout="@layout/detailed_fragment" >
+        tools:layout="@layout/editor_fragment" >
         <argument
             android:name="test1"
             app:argType="string"

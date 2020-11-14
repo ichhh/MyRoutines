@@ -11,24 +11,26 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.detailed_fragment.*
 
 
-class DetailedFragment : Fragment() {
+class EditorFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = DetailedFragment()
-    }
+//    companion object {
+//        fun newInstance() = DetailedFragment()
+//    }
 
-    private lateinit var viewModel: DetailedViewModel
+    private lateinit var viewModel: EditorViewModel
+    private lateinit var binding: EditorFragmentBinding
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.detailed_fragment, container, false)
+        val view = inflater.inflate(R.layout.editor_fragment, container, false)
         val tv = view.findViewById<TextView>(R.id.tv_detail)
 
         arguments?.let {
-            val args = DetailedFragmentArgs.fromBundle(it)
+            val args = EditorFragmentArgs.fromBundle(it)
             tv.text = "${args.test1}  ${args.text2}"
         }
 
