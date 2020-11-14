@@ -1,8 +1,8 @@
 package com.chernov.ivan.myroutines.dummy
 
-import com.chernov.ivan.myroutines.model.ProgramItem
-import java.util.ArrayList
-import java.util.HashMap
+import com.chernov.ivan.myroutines.model.ProgramEntity
+import com.chernov.ivan.myroutines.model.ProgramItemEntity
+import java.util.*
 
 /**
  * Helper class for providing sample content for user interfaces created by
@@ -12,11 +12,8 @@ import java.util.HashMap
  */
 object DummyContent {
 
-    /**
-     * An array of sample (dummy) items.
-     */
-    val ITEMS: MutableList<ProgramItem> = ArrayList()
-
+    val PROGRAMS_LIST: MutableList<ProgramEntity> = ArrayList()
+    val PROGRAM_MAP: MutableMap<String, ProgramEntity> = HashMap()
 
     /**
      * A map of sample (dummy) items, by ID.
@@ -26,15 +23,19 @@ object DummyContent {
     private val COUNT = 25
 
     init {
-        // Add some sample items.
-        for (i in 1..COUNT) {
-            addItem(createDummyItem(i))
-        }
-    }
+        for (i in 1..COUNT_PROGRAM) {
+            val itemsArrayList: MutableList<ProgramItemEntity> = ArrayList()
 
-    private fun addItem(item: ProgramItem) {
-        ITEMS.add(item)
-        ITEM_MAP.put(item.id, item)
+            for (i2 in 1..COUNT_ITMES) {
+                itemsArrayList.add(createDummyItem(i+i2))
+//                addItem(itemsArrayList,createDummyItem(i))
+            }
+            val program = ProgramEntity(i, "name_$i", itemsArrayList)
+            PROGRAMS_LIST.add(program) //for recyclerView
+            PROGRAM_MAP.put(i.toString(), program) //for getting selected
+
+
+        }
     }
 
     private fun createDummyItem(position: Int): ProgramItem {

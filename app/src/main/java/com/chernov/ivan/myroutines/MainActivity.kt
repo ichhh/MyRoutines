@@ -9,8 +9,8 @@ import com.chernov.ivan.myroutines.list.ItemFragment
 import com.chernov.ivan.myroutines.list.ItemFragmentDirections
 import com.chernov.ivan.myroutines.list.ProgramFragment
 import com.chernov.ivan.myroutines.list.ProgramFragmentDirections
-import com.chernov.ivan.myroutines.model.Program
-import com.chernov.ivan.myroutines.model.ProgramItem
+import com.chernov.ivan.myroutines.model.ProgramEntity
+import com.chernov.ivan.myroutines.model.ProgramItemEntity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
         }
     }
 
-    override fun onListFragmentInteraction(item: ProgramItem?) {
+    override fun onListFragmentInteraction(item: ProgramItemEntity?) {
 
         val action
                 = ItemFragmentDirections.actionItemFragmentToDetailedFragment()
@@ -85,7 +85,7 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 //        findNavController(R.id.nav_host_fragment).navigate(R.id.action_itemFragment_to_detailedFragment, args)
     }
 
-    override fun onListFragmentInteraction_program(item: Program?) {
+    override fun onListFragmentInteraction_program(item: ProgramEntity?) {
 //        TODO("VIEW MODEL")
 
         val action

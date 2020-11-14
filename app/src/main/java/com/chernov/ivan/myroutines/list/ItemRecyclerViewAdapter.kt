@@ -9,17 +9,17 @@ import android.widget.TextView
 
 import com.chernov.ivan.myroutines.list.ItemFragment.OnListFragmentInteractionListener
 import com.chernov.ivan.myroutines.R
-import com.chernov.ivan.myroutines.model.ProgramItem
+import com.chernov.ivan.myroutines.model.ProgramItemEntity
 
 import kotlinx.android.synthetic.main.fragment_item.view.*
 
 /**
- * [RecyclerView.Adapter] that can display a [ProgramItem] and makes a call to the
+ * [RecyclerView.Adapter] that can display a [ProgramItemEntity] and makes a call to the
  * specified [OnListFragmentInteractionListener].
  * TODO: Replace the implementation with code for your data type.
  */
 class ItemRecyclerViewAdapter(
-    private val mValues: List<ProgramItem>,
+    private val mValues: List<ProgramItemEntity>,
     private val mListener: OnListFragmentInteractionListener?
 ) : RecyclerView.Adapter<ItemRecyclerViewAdapter.ViewHolder>() {
 
@@ -27,7 +27,7 @@ class ItemRecyclerViewAdapter(
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val item = v.tag as ProgramItem
+            val item = v.tag as ProgramItemEntity
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListener?.onListFragmentInteraction(item)
@@ -42,7 +42,7 @@ class ItemRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        holder.mIdView.text = item.id
+        holder.mIdView.text = item.id.toString()
         holder.mContentView.text = item.name
 
         with(holder.mView) {
@@ -60,5 +60,10 @@ class ItemRecyclerViewAdapter(
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"
         }
+    }
+
+    interface ListItemListener {
+        fun editNote(noteId: Int)
+        fun onItemSelectionChanged()
     }
 }

@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import com.chernov.ivan.myroutines.R
 
 import com.chernov.ivan.myroutines.dummy.DummyContent
-import com.chernov.ivan.myroutines.model.ProgramItem
+import com.chernov.ivan.myroutines.model.ProgramItemEntity
 
 /**
  * A fragment representing a list of Items.
@@ -24,7 +24,7 @@ class ItemFragment : Fragment() {
 
     // TODO: Customize parameters
     private var columnCount = 1
-    private var  programID:String? = null
+    private var  programID:Int? = null
 
 
 
@@ -94,7 +94,7 @@ class ItemFragment : Fragment() {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: ProgramItem?)
+        fun onListFragmentInteraction(item: ProgramItemEntity?)
     }
 
     companion object {

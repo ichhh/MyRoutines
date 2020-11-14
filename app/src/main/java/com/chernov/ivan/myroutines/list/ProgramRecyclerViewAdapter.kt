@@ -8,14 +8,14 @@ import android.widget.TextView
 
 
 import com.chernov.ivan.myroutines.R
-import com.chernov.ivan.myroutines.model.Program
+import com.chernov.ivan.myroutines.model.ProgramEntity
 import kotlinx.android.synthetic.main.fragment_program.view.*
 
 //import kotlinx.android.synthetic.main.fragment_item.view.*
 
 
 class ProgramRecyclerViewAdapter(
-    private val mValues: List<Program>,
+    private val mValues: List<ProgramEntity>,
     private val mListenerItem: ProgramFragment.OnListFragmentInteractionListener_program?
 ) : RecyclerView.Adapter<ProgramRecyclerViewAdapter.ViewHolder>() {
 
@@ -23,7 +23,7 @@ class ProgramRecyclerViewAdapter(
 
     init {
         mOnClickListener = View.OnClickListener { v ->
-            val program = v.tag as Program
+            val program = v.tag as ProgramEntity
             // Notify the active callbacks interface (the activity, if the fragment is attached to
             // one) that an item has been selected.
             mListenerItem?.onListFragmentInteraction_program(program)
@@ -38,7 +38,7 @@ class ProgramRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val program = mValues[position]
-        holder.mIdView.text = program.id
+        holder.mIdView.text = program.id.toString()
         holder.mContentView.text = program.name
 
         with(holder.mView) {
@@ -56,5 +56,10 @@ class ProgramRecyclerViewAdapter(
         override fun toString(): String {
             return super.toString() + " '" + mContentView.text + "'"
         }
+    }
+
+    interface ListItemListener {
+        fun editNote(noteId: Int)
+        fun onItemSelectionChanged()
     }
 }
