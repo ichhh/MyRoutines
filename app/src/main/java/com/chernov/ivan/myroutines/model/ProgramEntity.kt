@@ -3,11 +3,11 @@ package com.chernov.ivan.myroutines.model
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity
+@Entity(tableName = "programs")
 data class ProgramEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val name: String,
-    //val itemsArray: MutableList<ProgramItemEntity>
+    val itemsArray: MutableList<ProgramItemEntity>
 ) {
     // TODO: 02.11.2020 works for List but not for ML
 //    override fun equals(other: Any?): Boolean {

@@ -86,8 +86,6 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
     }
 
     override fun onListFragmentInteraction_program(item: ProgramEntity?) {
-//        TODO("VIEW MODEL")
-
         val action
                 = ProgramFragmentDirections.actionProgramFragmentToItemFragment(item!!.id)
 
@@ -95,5 +93,17 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 //        action.text2 = "1" + item.toString()
         navController.navigate(action)
     }
+
+
+//    override fun onListFragmentInteraction_program(item: ProgramEntity?) {
+//
+//
+//        val action
+//                = ProgramFragmentDirections.actionProgramFragmentToItemFragment(item!!.id)
+//
+////        action.idProgram = program!!.id
+////        action.text2 = "1" + item.toString()
+//        navController.navigate(action)
+//    }
 }
 
