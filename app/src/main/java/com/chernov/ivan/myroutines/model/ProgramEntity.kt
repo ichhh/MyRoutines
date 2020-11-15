@@ -9,6 +9,9 @@ data class ProgramEntity(
     val name: String,
     val itemsArray: MutableList<ProgramItemEntity>
 ) {
+
+
+
     // TODO: 02.11.2020 works for List but not for ML
 //    override fun equals(other: Any?): Boolean {
 //        if (this === other) return true
