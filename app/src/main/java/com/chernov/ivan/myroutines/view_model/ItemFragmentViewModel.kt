@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.chernov.ivan.myroutines.data.AppDatabase
 import com.chernov.ivan.myroutines.data.temp.DummyContent
-import com.chernov.ivan.myroutines.model.ProgramItemEntity
+import com.chernov.ivan.myroutines.model.ItemEntity
 
 
 
@@ -28,7 +28,7 @@ class ItemFragmentViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
-    fun deleteItems(selectedItems: List<ProgramItemEntity>) {
+    fun deleteItems(selectedItems: List<ItemEntity>) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 database?.itemDao()?.deleteItems(selectedItems)

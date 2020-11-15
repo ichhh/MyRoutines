@@ -2,7 +2,7 @@ package com.chernov.ivan.myroutines.data;
 
 import androidx.room.TypeConverter;
 
-import com.chernov.ivan.myroutines.model.ProgramItemEntity;
+import com.chernov.ivan.myroutines.model.ItemEntity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -12,24 +12,24 @@ import java.util.List;
 public class ConverterGson {
 
     @TypeConverter
-    public String fromCountryLangList(List<ProgramItemEntity> countryLang) {
+    public String fromCountryLangList(List<ItemEntity> countryLang) {
         if (countryLang == null) {
             return (null);
         }
         Gson gson = new Gson();
-        Type type = new TypeToken<List<ProgramItemEntity>>() {}.getType();
+        Type type = new TypeToken<List<ItemEntity>>() {}.getType();
         String json = gson.toJson(countryLang, type);
         return json;
     }
 
     @TypeConverter
-    public List<ProgramItemEntity> toCountryLangList(String countryLangString) {
+    public List<ItemEntity> toCountryLangList(String countryLangString) {
         if (countryLangString == null) {
             return (null);
         }
         Gson gson = new Gson();
-        Type type = new TypeToken<List<ProgramItemEntity>>() {}.getType();
-        List<ProgramItemEntity> countryLangList = gson.fromJson(countryLangString, type);
+        Type type = new TypeToken<List<ItemEntity>>() {}.getType();
+        List<ItemEntity> countryLangList = gson.fromJson(countryLangString, type);
         return countryLangList;
     }
 }

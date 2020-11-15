@@ -1,7 +1,7 @@
 package com.chernov.ivan.myroutines.data.temp
 
 import com.chernov.ivan.myroutines.model.ProgramEntity
-import com.chernov.ivan.myroutines.model.ProgramItemEntity
+import com.chernov.ivan.myroutines.model.ItemEntity
 import java.util.*
 
 /**
@@ -20,10 +20,10 @@ object DummyContent {
 
     init {
         for (i in 1..COUNT_PROGRAM) {
-            val itemsArrayList: MutableList<ProgramItemEntity> = ArrayList()
+            val itemsArrayList: MutableList<ItemEntity> = ArrayList()
 
             for (i2 in 1..COUNT_ITMES) {
-                itemsArrayList.add(createDummyItem(i2,"p$i _item$i2"))
+                itemsArrayList.add(ItemEntity(i2, "p$i _item$i2",0,i))
             }
             val program = ProgramEntity(i, "name_$i", itemsArrayList)
             PROGRAMS_LIST.add(program) //for recyclerView
@@ -51,24 +51,24 @@ object DummyContent {
 //        return Program(position.toString(), itemsArrayList)
 //    }
 
-    private fun createDummyItem(position: Int,name: String): ProgramItemEntity {
-        //return DummyItem(position.toString(), "Item " + position, makeDetails(position))
-        return ProgramItemEntity(position, name)
-    }
+//    private fun createDummyItem(position: Int,name: String): ItemEntity {
+//        //return DummyItem(position.toString(), "Item " + position, makeDetails(position))
+//        return ItemEntity(position, name)
+//    }
 
 
-    private fun makeDetails(position: Int): String {
-        val builder = StringBuilder()
-        builder.append("Details about Item: ").append(position)
-        for (i in 0..position - 1) {
-            builder.append("\nMore details information here.")
-        }
-        return builder.toString()
-    }
+//    private fun makeDetails(position: Int): String {
+//        val builder = StringBuilder()
+//        builder.append("Details about Item: ").append(position)
+//        for (i in 0..position - 1) {
+//            builder.append("\nMore details information here.")
+//        }
+//        return builder.toString()
+//    }
 
-    fun getItemsOfProgram(programID: Int = 1): MutableList<ProgramItemEntity> {
+    fun getItemsOfProgram(programID: Int = 1): MutableList<ItemEntity> {
         // TODO: 02.11.2020  non-null assertion
-        val emptyItemList: MutableList<ProgramItemEntity> = arrayListOf()
+        val emptyItemList: MutableList<ItemEntity> = arrayListOf()
         return PROGRAM_MAP[programID]?.itemsArray ?: emptyItemList
     }
 

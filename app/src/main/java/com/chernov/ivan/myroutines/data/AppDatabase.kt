@@ -6,13 +6,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.chernov.ivan.myroutines.ProgramDao
-import com.chernov.ivan.myroutines.data.ConverterGson
-import com.chernov.ivan.myroutines.data.ItemDao
 import com.chernov.ivan.myroutines.data.temp.DateConverter
 import com.chernov.ivan.myroutines.model.ProgramEntity
-import com.chernov.ivan.myroutines.model.ProgramItemEntity
+import com.chernov.ivan.myroutines.model.ItemEntity
+import com.chernov.ivan.myroutines.util.DB_VERSION
 
-@Database(entities = [ProgramEntity::class, ProgramItemEntity::class], version = 2, exportSchema = false)
+@Database(entities = [ProgramEntity::class, ItemEntity::class], version = DB_VERSION, exportSchema = false)
 @TypeConverters(DateConverter::class,ConverterGson::class)
 
 abstract class AppDatabase: RoomDatabase() {

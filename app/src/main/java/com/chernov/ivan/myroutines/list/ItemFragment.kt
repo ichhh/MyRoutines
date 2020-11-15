@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chernov.ivan.myroutines.R
 import com.chernov.ivan.myroutines.databinding.FragmentItemListBinding
-import com.chernov.ivan.myroutines.model.ProgramItemEntity
+import com.chernov.ivan.myroutines.model.ItemEntity
 import com.chernov.ivan.myroutines.util.NEW_ENTITY_ID
 import com.chernov.ivan.myroutines.view_model.ItemFragmentViewModel
 
@@ -150,7 +150,7 @@ class ItemFragment : Fragment(),ItemRecyclerViewAdapter.ListItemListener {
      */
     interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        fun onListFragmentInteraction(item: ProgramItemEntity?)
+        fun onListFragmentInteraction(item: ItemEntity?)
     }
 
 
