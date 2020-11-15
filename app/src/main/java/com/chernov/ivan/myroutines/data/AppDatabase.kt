@@ -1,4 +1,4 @@
-package com.example.plainolnotes4.data
+package com.chernov.ivan.myroutines.data
 
 import android.content.Context
 import androidx.room.Database
@@ -10,8 +10,9 @@ import com.chernov.ivan.myroutines.data.ConverterGson
 import com.chernov.ivan.myroutines.data.ItemDao
 import com.chernov.ivan.myroutines.data.temp.DateConverter
 import com.chernov.ivan.myroutines.model.ProgramEntity
+import com.chernov.ivan.myroutines.model.ProgramItemEntity
 
-@Database(entities = [ProgramEntity::class], version = 1, exportSchema = false)
+@Database(entities = [ProgramEntity::class, ProgramItemEntity::class], version = 2, exportSchema = false)
 @TypeConverters(DateConverter::class,ConverterGson::class)
 
 abstract class AppDatabase: RoomDatabase() {
@@ -30,7 +31,9 @@ abstract class AppDatabase: RoomDatabase() {
                         AppDatabase::class.java,
                         "routines.db"
                         // TODO: 14.11.2020 extract db name. values?
-                    ).build()
+                    )
+                        .fallbackToDestructiveMigration() // TODO: 15.11.2020  provide a Migration in the builder
+                        .build()
                 }
             }
             return INSTANCE

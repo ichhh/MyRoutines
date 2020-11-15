@@ -2,33 +2,35 @@ package com.chernov.ivan.myroutines.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.chernov.ivan.myroutines.model.ProgramEntity
+
+import com.chernov.ivan.myroutines.model.ProgramItemEntity
 
 @Dao
 interface ItemDao {
 
-//    @Insert(onConflict = OnConflictStrategy.REPLACE)
-//    fun insertProgram(note: NoteEntity)
-//
-//    @Insert(onConflict = OnConflictStrategy.IGNORE)
-//    fun insertAll(Programs: List<ProgramEntity>)
-//
-//    @Query("SELECT * FROM programs ORDER BY date ASC")
-//    fun getAll(): LiveData<List<ProgramEntity>>
-//
-//    @Query("SELECT * FROM programs WHERE id = :id")
-//    fun getProgramById(id: Int): ProgramEntity?
-//
-//    @Query("SELECT COUNT(*) from programs")
-//    fun getCount(): Int
-//
-//    @Delete
-//    fun deletePrograms(selectedPrograms: List<ProgramEntity>): Int
-//
-//    @Query("DELETE FROM programs")
-//    fun deleteAll():Int
-//
-//    @Delete
-//    fun deleteProgram(Program: ProgramEntity)
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertItem(item: ProgramItemEntity)
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    fun insertAll(Items: List<ProgramItemEntity>)
+
+//    @Query("SELECT * FROM items ORDER BY date ASC")
+    @Query("SELECT * FROM items ORDER BY id ASC")
+    fun getAll(): LiveData<List<ProgramItemEntity>>
+
+    @Query("SELECT * FROM items WHERE id = :id")
+    fun getItemById(id: Int): ProgramItemEntity?
+
+    @Query("SELECT COUNT(*) from items")
+    fun getCount(): Int
+
+    @Delete
+    fun deleteItems(selectedItems: List<ProgramItemEntity>): Int
+
+    @Query("DELETE FROM items")
+    fun deleteAll():Int
+
+    @Delete
+    fun deleteItem(Item: ProgramItemEntity)
 
 }

@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.chernov.ivan.myroutines.data.temp.DummyContent
 import com.chernov.ivan.myroutines.model.ProgramEntity
-import com.example.plainolnotes4.data.AppDatabase
+import com.chernov.ivan.myroutines.data.AppDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext

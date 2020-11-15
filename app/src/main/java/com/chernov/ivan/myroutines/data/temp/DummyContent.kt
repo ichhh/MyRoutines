@@ -23,8 +23,7 @@ object DummyContent {
             val itemsArrayList: MutableList<ProgramItemEntity> = ArrayList()
 
             for (i2 in 1..COUNT_ITMES) {
-                itemsArrayList.add(createDummyItem(i+i2))
-//                addItem(itemsArrayList,createDummyItem(i))
+                itemsArrayList.add(createDummyItem(i2,"p$i _item$i2"))
             }
             val program = ProgramEntity(i, "name_$i", itemsArrayList)
             PROGRAMS_LIST.add(program) //for recyclerView
@@ -52,9 +51,9 @@ object DummyContent {
 //        return Program(position.toString(), itemsArrayList)
 //    }
 
-    private fun createDummyItem(position: Int): ProgramItemEntity {
+    private fun createDummyItem(position: Int,name: String): ProgramItemEntity {
         //return DummyItem(position.toString(), "Item " + position, makeDetails(position))
-        return ProgramItemEntity(position, "Name_$position")
+        return ProgramItemEntity(position, name)
     }
 
 
@@ -67,7 +66,7 @@ object DummyContent {
         return builder.toString()
     }
 
-    fun getItemsOfProgram(programID: Int = 2): MutableList<ProgramItemEntity> {
+    fun getItemsOfProgram(programID: Int = 1): MutableList<ProgramItemEntity> {
         // TODO: 02.11.2020  non-null assertion
         val emptyItemList: MutableList<ProgramItemEntity> = arrayListOf()
         return PROGRAM_MAP[programID]?.itemsArray ?: emptyItemList
