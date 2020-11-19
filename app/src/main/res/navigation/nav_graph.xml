@@ -7,14 +7,14 @@
 
     <fragment
         android:id="@+id/itemFragment"
-        android:name="com.chernov.ivan.myroutines.list.ItemFragment"
+        android:name="com.chernov.ivan.myroutines.ItemFragment"
         android:label="fragment_item_list"
         tools:layout="@layout/fragment_item_list" >
         <action
             android:id="@+id/action_itemFragment_to_detailedFragment"
             app:destination="@id/detailedFragment" />
         <argument
-            android:name="idProgram"
+            android:name="programID"
             app:argType="integer" />
     </fragment>
     <fragment
@@ -23,12 +23,19 @@
         android:label="detailed_fragment"
         tools:layout="@layout/editor_fragment" >
         <argument
-            android:name="test1"
-            app:argType="string"
-            android:defaultValue="test1" />
+            android:name="itemId"
+            app:argType="integer"
+            android:defaultValue="0" />
         <argument
-            android:name="text2"
-            app:argType="string"
-            android:defaultValue="test2" />
+            android:name="programID"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/programFragment"
+        android:name="com.chernov.ivan.myroutines.ProgramFragment"
+        android:label="ProgramFragment" >
+        <action
+            android:id="@+id/action_programFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
     </fragment>
 </navigation>

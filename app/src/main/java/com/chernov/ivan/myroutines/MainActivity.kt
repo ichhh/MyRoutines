@@ -5,10 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
-import com.chernov.ivan.myroutines.list.ItemFragment
-import com.chernov.ivan.myroutines.list.ItemFragmentDirections
-import com.chernov.ivan.myroutines.list.ProgramFragment
-import com.chernov.ivan.myroutines.list.ProgramFragmentDirections
+
 import com.chernov.ivan.myroutines.model.ProgramEntity
 import com.chernov.ivan.myroutines.model.ItemEntity
 import com.google.android.material.snackbar.Snackbar
@@ -70,12 +67,12 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
         }
     }
 
-    override fun onListFragmentInteraction(item: ItemEntity?) {
+    override fun onListFragmentInteraction_item(item: ItemEntity?,programId: Int) {
 
         val action
-                = ItemFragmentDirections.actionItemFragmentToDetailedFragment()
-        action.test1 = "Selected2"
-        action.text2 = "1" + item.toString()
+                = ItemFragmentDirections.actionItemFragmentToDetailedFragment(programId)
+        action.itemId = item?.id ?: -1
+        action.programID = programId
         navController.navigate(action)
 
 

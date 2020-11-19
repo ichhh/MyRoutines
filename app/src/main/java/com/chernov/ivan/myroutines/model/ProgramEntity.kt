@@ -6,8 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "programs")
 data class ProgramEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
-    val name: String,
-    val itemsArray: MutableList<ItemEntity>
+    var name: String,
+    var itemsArray: MutableList<ItemEntity>
 ) {
 
 
