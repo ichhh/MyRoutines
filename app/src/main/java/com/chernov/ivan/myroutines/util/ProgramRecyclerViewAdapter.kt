@@ -60,7 +60,7 @@ class ProgramRecyclerViewAdapter(
     }
 
     interface ListItemListener {
-        fun editNote(noteId: Int)
+        fun editProgram(noteId: Int)
         fun onItemSelectionChanged()
     }
 }

@@ -116,8 +116,8 @@ class ItemFragment : Fragment(), ItemRecyclerViewAdapter.ListItemListener {
 //            adapter.selectedNotes.addAll(selectedNotes ?: emptyList())
         })
 
-        binding.fab.setOnClickListener {
-            editNote(NEW_ENTITY_ID)
+        binding.fabMainActivity.setOnClickListener {
+            editItem(NEW_ENTITY_ID)
         }
 
         return binding.root
@@ -155,7 +155,7 @@ class ItemFragment : Fragment(), ItemRecyclerViewAdapter.ListItemListener {
 
 
 
-    override fun editNote(noteId: Int) {
+    override fun editItem(noteId: Int) {
         TODO("Not yet implemented")
     }
 

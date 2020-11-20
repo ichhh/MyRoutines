@@ -1,7 +1,10 @@
 package com.chernov.ivan.myroutines.util
 
-const val DB_VERSION = 3
 const val DEBUGGING = true
+const val TAG = "EDIT_DIALOG"
+
+const val DB_VERSION = 3
+
 
 const val NEW_ENTITY_ID = 0
 const val CURSOR_POSITION_KEY = "cursorPositionKey"
@@ -9,9 +12,12 @@ const val SELECTED_ENTITY_KEY = "selectedItemsKey"
 const val ITEM_TEXT_KEY = "itemTextKey"
 
 //new entry id -1
-
+// //val samplePrograms = SampleDataProvider.getPrograms() _find and fix this
+//
 // TODO: 16.11.2020 create program
 // TODO: 16.11.2020 create item
+
+// TODO: 19.11.2020 add some sample data to db
 // TODO: 16.11.2020 change Add icone
 // TODO: 16.11.2020 prepare Play/Pause Previous Next Stop icons (AS examples?)
 

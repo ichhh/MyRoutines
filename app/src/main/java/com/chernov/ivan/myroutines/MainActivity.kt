@@ -5,13 +5,19 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
+import com.chernov.ivan.myroutines.dialogs.ProgramEditDialog
 
 import com.chernov.ivan.myroutines.model.ProgramEntity
 import com.chernov.ivan.myroutines.model.ItemEntity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteractionListener, ProgramFragment.OnListFragmentInteractionListener_program {
+class MainActivity :
+    AppCompatActivity(),
+    ItemFragment.OnListFragmentInteractionListener,
+    ProgramFragment.OnListFragmentInteractionListener_program,
+    ProgramEditDialog.ProgramEditDialogListener
+{
 
     //--todo Safeargs
     //--todo choose build-in intent
@@ -45,7 +51,7 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 
         setSupportActionBar(toolbar)
 
-        fab.setOnClickListener { view ->
+        fab_mainActivity.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
@@ -89,6 +95,10 @@ class MainActivity : AppCompatActivity(), ItemFragment.OnListFragmentInteraction
 //        action.idProgram = program!!.id
 //        action.text2 = "1" + item.toString()
         navController.navigate(action)
+    }
+
+    override fun onProgramEditDialogResult(programId: Int) {
+        TODO("Not yet implemented")
     }
 
 

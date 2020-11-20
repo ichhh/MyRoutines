@@ -63,7 +63,7 @@ class ItemRecyclerViewAdapter(
     }
 
     interface ListItemListener {
-        fun editNote(noteId: Int)
+        fun editItem(noteId: Int)
         fun onItemSelectionChanged()
     }
 }

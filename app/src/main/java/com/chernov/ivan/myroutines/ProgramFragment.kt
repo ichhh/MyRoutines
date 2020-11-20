@@ -13,10 +13,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chernov.ivan.myroutines.databinding.FragmentProgramListBinding
-import com.chernov.ivan.myroutines.util.ProgramRecyclerViewAdapter
+import com.chernov.ivan.myroutines.dialogs.ProgramEditDialog
 import com.chernov.ivan.myroutines.model.ProgramEntity
 import com.chernov.ivan.myroutines.util.NEW_ENTITY_ID
+import com.chernov.ivan.myroutines.util.ProgramRecyclerViewAdapter
 import com.chernov.ivan.myroutines.view_model.ProgramFragmentViewModel
+import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class ProgramFragment : Fragment(), ProgramRecyclerViewAdapter.ListItemListener {
@@ -58,23 +60,7 @@ class ProgramFragment : Fragment(), ProgramRecyclerViewAdapter.ListItemListener 
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        val view = inflater.inflate(R.layout.fragment_program_list, container, false)
-//
-//        // Set the adapter
-//        if (view is RecyclerView) {
-//            with(view) {
-//                layoutManager = when {
-//                    columnCount <= 1 -> LinearLayoutManager(context)
-//                    else -> GridLayoutManager(context, columnCount)
-//                }
-//                adapter =
-//                    ProgramRecyclerViewAdapter(
-//                        DummyContent.PROGRAMS_LIST,
-//                        listener
-//                    )
-//            }
-//        }
-//        return view
+
 
         (activity as AppCompatActivity)
             .supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -85,6 +71,21 @@ class ProgramFragment : Fragment(), ProgramRecyclerViewAdapter.ListItemListener 
 
         binding = FragmentProgramListBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(ProgramFragmentViewModel::class.java)
+        viewModel.programsList?.observe(viewLifecycleOwner, Observer {
+            Log.i("noteLogging", it.toString())
+            //adapter = NotesListAdapter(it, this@MainFragment)
+            if (it.isEmpty())
+                viewModel.addSampleData()
+
+            adapter = ProgramRecyclerViewAdapter(it, listener)
+            binding.programList.adapter = adapter
+            binding.programList.layoutManager = LinearLayoutManager(activity)
+
+            // TODO: 15.11.2020 conf change handling?
+//            val selectedPrograms =
+//                savedInstanceState?.getParcelableArrayList<ProgramEntity>(SELECTED_ENTITY_KEY)
+//            adapter.selectedNotes.addAll(selectedNotes ?: emptyList())
+        })
 
         with(binding.programList) {
             setHasFixedSize(true)
@@ -105,24 +106,8 @@ class ProgramFragment : Fragment(), ProgramRecyclerViewAdapter.ListItemListener 
 //                )
         }
 
-        viewModel.programsList?.observe(viewLifecycleOwner, Observer {
-            Log.i("noteLogging", it.toString())
-            //adapter = NotesListAdapter(it, this@MainFragment)
-            if (it.isEmpty())
-            viewModel.addSampleData()
-
-            adapter = ProgramRecyclerViewAdapter(it, listener)
-            binding.programList.adapter = adapter
-            binding.programList.layoutManager = LinearLayoutManager(activity)
-
-            // TODO: 15.11.2020 conf change handling?
-//            val selectedPrograms =
-//                savedInstanceState?.getParcelableArrayList<ProgramEntity>(SELECTED_ENTITY_KEY)
-//            adapter.selectedNotes.addAll(selectedNotes ?: emptyList())
-        })
-
-        binding.fab.setOnClickListener {
-            editNote(NEW_ENTITY_ID)
+        binding.fabMainActivity.setOnClickListener {
+            editProgram(NEW_ENTITY_ID)
         }
 
         return binding.root
@@ -142,19 +127,18 @@ class ProgramFragment : Fragment(), ProgramRecyclerViewAdapter.ListItemListener 
         listener = null
     }
 
-
     interface OnListFragmentInteractionListener_program {
         // TODO: Update argument type and name
         fun onListFragmentInteraction_program(item: ProgramEntity?)
     }
 
-
-
-    override fun editNote(noteId: Int) {
+    override fun editProgram(programId: Int) {
         // TODO: 14.11.2020 ???
 //        Log.i(TAG, "onItemClick: received note id $noteId")
 //        val action = MainFragmentDirections.actionEditNote(noteId)
 //        findNavController().navigate(action)
+        val programDialog = ProgramEditDialog()
+        programDialog.show(parentFragmentManager, "CustomDialogFragment")
     }
 
     override fun onItemSelectionChanged() {

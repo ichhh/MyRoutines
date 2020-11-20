@@ -13,6 +13,7 @@ import kotlinx.coroutines.withContext
 class ProgramFragmentViewModel(app: Application) : AndroidViewModel(app) {
 
     private val database = AppDatabase.getInstance(app)
+
     val programsList = database?.programDao()?.getAll()
 
     fun addSampleData() {

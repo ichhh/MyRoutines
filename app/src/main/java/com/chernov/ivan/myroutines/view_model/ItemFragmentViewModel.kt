@@ -19,6 +19,7 @@ class ItemFragmentViewModel(app: Application) : AndroidViewModel(app) {
 
     val itemsList = database?.itemDao()?.getAll()
 
+    // TODO: 19.11.2020 to delete
     fun addSampleData() {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {

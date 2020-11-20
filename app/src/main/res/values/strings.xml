@@ -16,4 +16,5 @@
     <string name="edit_item">Edit item</string>
     <string name="new_program">New program</string>
     <string name="edit_program">Edit program</string>
+    <string name="ProgramEditDialog_Hint">Program name</string>
 </resources>
