@@ -1,7 +1,7 @@
 package com.chernov.ivan.myroutines.util
 
 const val DEBUGGING = true
-const val TAG = "EDIT_DIALOG"
+const val TAG_D = "TAG_D"
 
 const val DB_VERSION = 3
 

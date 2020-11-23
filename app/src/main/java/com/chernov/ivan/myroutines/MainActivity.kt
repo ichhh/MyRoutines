@@ -1,6 +1,7 @@
 package com.chernov.ivan.myroutines
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -10,6 +11,7 @@ import com.chernov.ivan.myroutines.dialogs.ProgramEditDialog
 
 import com.chernov.ivan.myroutines.model.ProgramEntity
 import com.chernov.ivan.myroutines.model.ItemEntity
+import com.chernov.ivan.myroutines.util.TAG_D
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -17,6 +19,7 @@ class MainActivity :
     AppCompatActivity(),
     ItemFragment.OnListFragmentInteractionListener,
     ProgramFragment.OnListFragmentInteractionListener_program,
+    ProgramFragment.OnListFragmentInteractionListener_program_longClick,
     ProgramEditDialog.ProgramEditDialogListener
 {
 // TODO: 22.11.2020 Plain Ol'Notes 4 has emptyMainActiviy
@@ -96,12 +99,25 @@ class MainActivity :
 
 //        action.idProgram = program!!.id
 //        action.text2 = "1" + item.toString()
+        Log.d(TAG_D, "onListFragmentInteraction_program:${item!!.id}")
+        navController.navigate(action)
+    }
+
+    override fun onListFragmentInteraction_program_longClick(item: ProgramEntity?) {
+        val action
+                = ProgramFragmentDirections.actionProgramFragmentToItemFragment(item!!.id)
+
+//        action.idProgram = program!!.id
+//        action.text2 = "1" + item.toString()
+        Log.d(TAG_D, "onListFragmentInteraction_program:_LONG${item!!.id}")
         navController.navigate(action)
     }
 
     override fun onProgramEditDialogResult(programId: Int) {
         Toast.makeText(applicationContext, programId, Toast.LENGTH_SHORT).show()
     }
+
+
 
 
 //    override fun onListFragmentInteraction_program(item: ProgramEntity?) {

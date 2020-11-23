@@ -29,6 +29,7 @@ class ProgramFragment : Fragment(), ProgramRecyclerViewAdapter.ListItemListener 
     // TODO: 02.11.2020 Customize parameters
 
     private var listener: OnListFragmentInteractionListener_program? = null
+    private var listenerLongClick: OnListFragmentInteractionListener_program_longClick? = null
 
 //    private var columnCount = 1
 
@@ -76,7 +77,7 @@ class ProgramFragment : Fragment(), ProgramRecyclerViewAdapter.ListItemListener 
             if (it.isEmpty())
                 viewModel.addSampleData()
 
-            adapter = ProgramRecyclerViewAdapter(it, listener)
+            adapter = ProgramRecyclerViewAdapter(it, listener,listenerLongClick)
             binding.programList.adapter = adapter
             binding.programList.layoutManager = LinearLayoutManager(activity)
 
@@ -116,19 +117,35 @@ class ProgramFragment : Fragment(), ProgramRecyclerViewAdapter.ListItemListener 
         super.onAttach(context)
         if (context is OnListFragmentInteractionListener_program) {
             listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnListFragmentInteractionListener_program")
+        }
+
+        else {
+            throw RuntimeException("$context must implement OnListFragmentInteractionListener_program")
+        }
+
+        if (context is OnListFragmentInteractionListener_program_longClick) {
+            listenerLongClick = context
+        }
+
+        else {
+            throw RuntimeException("$context must implement OnListFragmentInteractionListener_program_longClick")
         }
     }
 
     override fun onDetach() {
         super.onDetach()
         listener = null
+        listenerLongClick = null
     }
 
     interface OnListFragmentInteractionListener_program {
         // TODO: Update argument type and name
         fun onListFragmentInteraction_program(item: ProgramEntity?)
+    }
+
+    interface OnListFragmentInteractionListener_program_longClick {
+        // TODO: Update argument type and name
+        fun onListFragmentInteraction_program_longClick(item: ProgramEntity?)
     }
 
     override fun editProgram(programId: Int, programName: String) {

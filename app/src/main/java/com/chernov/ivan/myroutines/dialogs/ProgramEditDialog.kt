@@ -59,8 +59,6 @@ class ProgramEditDialog : DialogFragment() {
                 //     .setNegativeButton("Cancel") { dialog, which -> Log.i(TAG, "Cancel clicked")
             }
 
-
-
         return builder.create()
     }
 
