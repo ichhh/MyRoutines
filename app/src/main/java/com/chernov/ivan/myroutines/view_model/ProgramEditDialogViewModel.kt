@@ -10,7 +10,9 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.chernov.ivan.myroutines.data.AppDatabase
 import com.chernov.ivan.myroutines.data.temp.DummyContent
+import com.chernov.ivan.myroutines.model.ItemEntity
 import com.chernov.ivan.myroutines.model.ProgramEntity
+import com.chernov.ivan.myroutines.util.NEW_ENTITY_ID
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -38,5 +40,25 @@ class ProgramEditDialogViewModel(app: Application) : AndroidViewModel(app) {
             }
         }
     }
+
+    fun insertProgram(programName: String, programId: Int) {
+        viewModelScope.launch {
+            var program: ProgramEntity? = null
+            withContext(Dispatchers.IO) {
+                if (programId == NEW_ENTITY_ID) {
+                    program = ProgramEntity(0,programName,
+                        mutableListOf<ItemEntity>()
+                    )
+                }
+                else
+                {program = database?.programDao()?.getProgramById(programId)}
+
+                database?.programDao()?.insertProgram(program!!)
+            }
+        }
+    }
+
+
+
 
 }

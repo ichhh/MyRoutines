@@ -6,7 +6,7 @@ const val TAG = "EDIT_DIALOG"
 const val DB_VERSION = 3
 
 
-const val NEW_ENTITY_ID = 0
+const val NEW_ENTITY_ID = -1
 const val CURSOR_POSITION_KEY = "cursorPositionKey"
 const val SELECTED_ENTITY_KEY = "selectedItemsKey"
 const val ITEM_TEXT_KEY = "itemTextKey"

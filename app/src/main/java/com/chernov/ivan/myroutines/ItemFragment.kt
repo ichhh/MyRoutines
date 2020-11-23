@@ -116,7 +116,7 @@ class ItemFragment : Fragment(), ItemRecyclerViewAdapter.ListItemListener {
 //            adapter.selectedNotes.addAll(selectedNotes ?: emptyList())
         })
 
-        binding.fabMainActivity.setOnClickListener {
+        binding.fabItem.setOnClickListener {
             editItem(NEW_ENTITY_ID)
         }
 

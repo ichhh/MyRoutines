@@ -10,15 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chernov.ivan.myroutines.databinding.FragmentProgramListBinding
-import com.chernov.ivan.myroutines.dialogs.ProgramEditDialog
 import com.chernov.ivan.myroutines.model.ProgramEntity
 import com.chernov.ivan.myroutines.util.NEW_ENTITY_ID
 import com.chernov.ivan.myroutines.util.ProgramRecyclerViewAdapter
 import com.chernov.ivan.myroutines.view_model.ProgramFragmentViewModel
-import kotlinx.android.synthetic.main.activity_main.view.*
 
 
 class ProgramFragment : Fragment(), ProgramRecyclerViewAdapter.ListItemListener {
@@ -106,8 +105,8 @@ class ProgramFragment : Fragment(), ProgramRecyclerViewAdapter.ListItemListener 
 //                )
         }
 
-        binding.fabMainActivity.setOnClickListener {
-            editProgram(NEW_ENTITY_ID)
+        binding.fabProgram.setOnClickListener {
+            editProgram(NEW_ENTITY_ID,"")
         }
 
         return binding.root
@@ -132,13 +131,14 @@ class ProgramFragment : Fragment(), ProgramRecyclerViewAdapter.ListItemListener 
         fun onListFragmentInteraction_program(item: ProgramEntity?)
     }
 
-    override fun editProgram(programId: Int) {
-        // TODO: 14.11.2020 ???
-//        Log.i(TAG, "onItemClick: received note id $noteId")
-//        val action = MainFragmentDirections.actionEditNote(noteId)
-//        findNavController().navigate(action)
-        val programDialog = ProgramEditDialog()
-        programDialog.show(parentFragmentManager, "CustomDialogFragment")
+    override fun editProgram(programId: Int, programName: String) {
+
+        val action
+                = ProgramFragmentDirections.actionProgramFragmentToProgramEditDialog(programId,programName)
+        findNavController().navigate(action)
+
+//        val programDialog = ProgramEditDialog()
+//        programDialog.show(parentFragmentManager, "CustomDialogFragment")
     }
 
     override fun onItemSelectionChanged() {

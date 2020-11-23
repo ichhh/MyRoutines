@@ -3,6 +3,7 @@ package com.chernov.ivan.myroutines
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import com.chernov.ivan.myroutines.dialogs.ProgramEditDialog
@@ -18,6 +19,7 @@ class MainActivity :
     ProgramFragment.OnListFragmentInteractionListener_program,
     ProgramEditDialog.ProgramEditDialogListener
 {
+// TODO: 22.11.2020 Plain Ol'Notes 4 has emptyMainActiviy
 
     //--todo Safeargs
     //--todo choose build-in intent
@@ -51,10 +53,10 @@ class MainActivity :
 
         setSupportActionBar(toolbar)
 
-        fab_mainActivity.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+//        fab_mainActivity.setOnClickListener { view ->
+//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show()
+//        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -98,7 +100,7 @@ class MainActivity :
     }
 
     override fun onProgramEditDialogResult(programId: Int) {
-        TODO("Not yet implemented")
+        Toast.makeText(applicationContext, programId, Toast.LENGTH_SHORT).show()
     }
 
 

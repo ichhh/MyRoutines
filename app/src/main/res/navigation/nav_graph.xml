@@ -12,13 +12,13 @@
         tools:layout="@layout/fragment_item_list" >
         <action
             android:id="@+id/action_itemFragment_to_detailedFragment"
-            app:destination="@id/detailedFragment" />
+            app:destination="@id/editorFragment" />
         <argument
             android:name="programID"
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/detailedFragment"
+        android:id="@+id/editorFragment"
         android:name="com.chernov.ivan.myroutines.EditorFragment"
         android:label="detailed_fragment"
         tools:layout="@layout/editor_fragment" >
@@ -37,5 +37,19 @@
         <action
             android:id="@+id/action_programFragment_to_itemFragment"
             app:destination="@id/itemFragment" />
+        <action
+            android:id="@+id/action_programFragment_to_programEditDialog"
+            app:destination="@id/programEditDialog" />
     </fragment>
+    <dialog
+        android:id="@+id/programEditDialog"
+        android:name="com.chernov.ivan.myroutines.dialogs.ProgramEditDialog"
+        android:label="ProgramEditDialog" >
+        <argument
+            android:name="programId"
+            app:argType="integer" />
+        <argument
+            android:name="programName"
+            app:argType="string" />
+    </dialog>
 </navigation>
