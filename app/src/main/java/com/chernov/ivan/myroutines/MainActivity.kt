@@ -93,23 +93,21 @@ class MainActivity :
 //        findNavController(R.id.nav_host_fragment).navigate(R.id.action_itemFragment_to_detailedFragment, args)
     }
 
-    override fun onListFragmentInteraction_program(item: ProgramEntity?) {
+    override fun onListFragmentInteraction_program(program: ProgramEntity?) {
         val action
-                = ProgramFragmentDirections.actionProgramFragmentToItemFragment(item!!.id)
+                = ProgramFragmentDirections.actionProgramFragmentToItemFragment(program!!.id)
 
 //        action.idProgram = program!!.id
 //        action.text2 = "1" + item.toString()
-        Log.d(TAG_D, "onListFragmentInteraction_program:${item!!.id}")
+        Log.d(TAG_D, "onListFragmentInteraction_program:${program.id}")
         navController.navigate(action)
     }
 
-    override fun onListFragmentInteraction_program_longClick(item: ProgramEntity?) {
+    override fun onListFragmentInteraction_program_longClick(program: ProgramEntity?) {
         val action
-                = ProgramFragmentDirections.actionProgramFragmentToItemFragment(item!!.id)
+                = ProgramFragmentDirections.actionProgramFragmentToProgramEditDialog(program!!.id,
+            program.name)
 
-//        action.idProgram = program!!.id
-//        action.text2 = "1" + item.toString()
-        Log.d(TAG_D, "onListFragmentInteraction_program:_LONG${item!!.id}")
         navController.navigate(action)
     }
 

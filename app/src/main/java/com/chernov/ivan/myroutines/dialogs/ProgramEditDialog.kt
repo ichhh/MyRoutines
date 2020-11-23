@@ -53,7 +53,7 @@ class ProgramEditDialog : DialogFragment() {
             .setPositiveButton("OK") { dialog, which ->
                 viewModel.insertProgram(
                     v?.findViewById<EditText>(R.id.et_ProgramName)?.text.toString(),
-                    NEW_ENTITY_ID
+                    args.programId
                 )
                 //viewModel.insertProgram(binding.etProgramName.text.toString(), NEW_ENTITY_ID)
                 //     .setNegativeButton("Cancel") { dialog, which -> Log.i(TAG, "Cancel clicked")
