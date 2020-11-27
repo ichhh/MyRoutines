@@ -15,6 +15,7 @@ import com.chernov.ivan.myroutines.R
 import com.chernov.ivan.myroutines.databinding.ProgramEditDialogFragmentBinding
 import com.chernov.ivan.myroutines.util.NEW_ENTITY_ID
 import com.chernov.ivan.myroutines.view_model.ProgramEditDialogViewModel
+import kotlinx.android.synthetic.main.program_edit_dialog_fragment.*
 
 class ProgramEditDialog : DialogFragment() {
 
@@ -32,12 +33,18 @@ class ProgramEditDialog : DialogFragment() {
         val v =
             requireActivity().layoutInflater.inflate(R.layout.program_edit_dialog_fragment, null)
 
+        val et = v?.findViewById<EditText>(R.id.et_ProgramName)
+
         // Build the dialog
-        val title: String = if (args.programId == NEW_ENTITY_ID) {
+        val tempName =
+        if (args.programId == NEW_ENTITY_ID) {
             getString(R.string.new_program)
         } else {
             args.programName
         }
+
+        et?.setText(tempName)
+
 
 //        binding.etProgramName.hint = if (args.programId !== NEW_ENTITY_ID) {
 //            "new name"}
@@ -47,12 +54,13 @@ class ProgramEditDialog : DialogFragment() {
 //        binding.setViewModel(new ViewModel(this, event.olaBooking));
 
         val builder = AlertDialog.Builder(requireActivity())
-        builder.setTitle(title)
+        builder.setTitle("")
             .setView(v)
 //            .setView(binding.root)
             .setPositiveButton("OK") { dialog, which ->
                 viewModel.insertProgram(
-                    v?.findViewById<EditText>(R.id.et_ProgramName)?.text.toString(),
+//                    v?.findViewById<EditText>(R.id.et_ProgramName)?.text.toString(),
+                    et?.text.toString(),
                     args.programId
                 )
                 //viewModel.insertProgram(binding.etProgramName.text.toString(), NEW_ENTITY_ID)
@@ -79,9 +87,9 @@ class ProgramEditDialog : DialogFragment() {
 //        savedInstanceState: Bundle?
 //    ): View? {
 //
-////        binding = ProgramEditDialogFragmentBinding.inflate(inflater,container,false)
+//        binding = ProgramEditDialogFragmentBinding.inflate(inflater,container,false)
 ////        binding = ProgramEditDialogFragmentBinding.inflate(LayoutInflater.from(, R.layout.program_edit_dialog_fragment, null, false)
-////        return binding.root
+//        return binding.root
 ////        return super.onCreateView(inflater, container, savedInstanceState)
 //
 //    }
