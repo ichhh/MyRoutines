@@ -1,3 +1,16 @@
+buildscript {
+    repositories {
+        google()
+        maven { url 'https://jitpack.io' }
+        jcenter()
+
+    }
+    dependencies {
+        classpath "io.realm:realm-gradle-plugin:7.0.8"
+        classpath 'com.android.tools.build:gradle:4.1.1'
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
@@ -8,7 +21,7 @@ plugins {
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.example.plainolnotes4"
@@ -19,6 +32,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -36,28 +51,103 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        dataBinding = true
     }
 }
 
 dependencies {
 
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.4.21'
+    implementation 'androidx.core:core-ktx:1.3.2'
+
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation "androidx.navigation:navigation-fragment-ktx:2.3.2"
+    implementation "androidx.navigation:navigation-ui-ktx:2.3.2"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
-    def room_version = "2.2.5"
 
-    implementation "androidx.room:room-runtime:$room_version"
-    kapt "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-ktx:$room_version"
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+
+//    implementation "androidx.appcompat:appcompat:${versions.androidX}"
+//    implementation "androidx.recyclerview:recyclerview:${versions.androidX}"
+
+    implementation "androidx.room:room-runtime:2.2.6"
+    kapt "androidx.room:room-compiler:2.2.6"
+    implementation "androidx.room:room-ktx:2.2.6"
+
+    testImplementation 'junit:junit:4.13.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+
+
+
+
+    implementation "com.mikepenz:fastadapter:${versions.latestFastAdapterRelease}"
+
+
+    implementation "com.mikepenz:fastadapter-extensions-expandable:${versions.latestFastAdapterRelease}"
+
+    implementation "com.mikepenz:fastadapter-extensions-binding:${versions.latestFastAdapterRelease}" // view binding helpers
+    implementation "com.mikepenz:fastadapter-extensions-diff:${versions.latestFastAdapterRelease}" // diff util helpers
+    implementation "com.mikepenz:fastadapter-extensions-drag:${versions.latestFastAdapterRelease}" // drag support
+    implementation "com.mikepenz:fastadapter-extensions-paged:${versions.latestFastAdapterRelease}" // paging support
+    implementation "com.mikepenz:fastadapter-extensions-scroll:${versions.latestFastAdapterRelease}" // scroll helpers
+    implementation "com.mikepenz:fastadapter-extensions-swipe:${versions.latestFastAdapterRelease}" // swipe support
+    implementation "com.mikepenz:fastadapter-extensions-ui:${versions.latestFastAdapterRelease}" // pre-defined ui components
+    implementation "com.mikepenz:fastadapter-extensions-utils:${versions.latestFastAdapterRelease}" // needs the `expandable`, `drag` and `scroll` extension.
+
+    // required for the ui components and the utils
+    implementation "com.google.android.material:material:${versions.androidX}"
+
+
+
+    //used to generate the drawer on the left
+    //https://github.com/mikepenz/MaterialDrawer
+    implementation("com.mikepenz:materialdrawer:${versions.materialdrawer}") {
+        exclude module: "fastadapter"
+        exclude module: "fastadapter-extensions-expandable"
+    }
+    implementation("com.mikepenz:materialdrawer-iconics:${versions.materialdrawer}") {
+        exclude module: "fastadapter"
+        exclude module: "fastadapter-extensions-expandable"
+    }
+
+    //Used to async operations
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.20'
+
+
+    //used to display the icons in the drawer
+    //https://github.com/mikepenz/Android-Iconics
+    implementation 'com.mikepenz:material-design-iconic-typeface:2.2.0.4@aar'
+    implementation 'com.mikepenz:community-material-typeface:5.3.45.1-kotlin@aar'
+    implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
+    implementation 'com.mikepenz:fontawesome-typeface:5.9.0.0-kotlin@aar'
+
+    implementation 'com.android.support:multidex:1.0.3'
+
+    //Used to provide the FastScrollBar
+    //https://github.com/krimin-killr21/MaterialScrollBar
+    implementation 'com.github.turing-tech:MaterialScrollBar:13.3.4'
+//    implementation 'com.github.turing-tech:MaterialScrollBar:13.4.1'
+
+//    buildscript {
+//        repositories {
+//            google()
+//            jcenter()
+//            maven { url "https://jitpack.io" }
+//        }
+//        dependencies {
+//            classpath "io.realm:realm-gradle-plugin:7.0.8"
+//        }
+//    }
 }
+
+
+
+
