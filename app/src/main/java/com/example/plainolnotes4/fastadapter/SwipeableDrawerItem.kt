@@ -11,6 +11,7 @@ import com.mikepenz.fastadapter.swipe.IDrawerSwipeableViewHolder
 import com.mikepenz.fastadapter.swipe.ISwipeable
 import com.mikepenz.materialdrawer.holder.StringHolder
 import io.reactivex.functions.Consumer
+import kotlin.time.Duration
 
 
 /**
@@ -20,6 +21,11 @@ class SwipeableDrawerItem : AbstractItem<SwipeableDrawerItem.ViewHolder>(), ISwi
 
     var name: StringHolder? = null
     var description: StringHolder? = null
+
+    var duration: Long? = null
+    var pauseAfter: Boolean = false
+
+
 
     var deleteAction: Consumer<SwipeableDrawerItem>? = null
     var archiveAction: Consumer<SwipeableDrawerItem>? = null

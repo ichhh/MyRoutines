@@ -92,21 +92,45 @@ class MainActivity : AppCompatActivity() , ItemTouchCallback, SimpleSwipeDrawerC
         rv.adapter = fastItemDrawerAdapter
 
         //fill with some sample data
+
+//        var x = 0
+//        val items = ArrayList<SwipeableDrawerItem>()
+//        for (s in ALPHABET) {
+//            val count = Random().nextInt(20)
+//            for (i in 1..count) {
+//                val swipeableItem = SwipeableDrawerItem().withName("$s Test $x")
+//                swipeableItem.identifier = (100 + x).toLong()
+//                swipeableItem.withIsSwipeable(i % 5 != 0)
+//                swipeableItem.withIsDraggable(i % 5 != 0)
+//                swipeableItem.deleteAction = Consumer { item -> delete(item) }
+//                swipeableItem.archiveAction = Consumer { item -> archive(item) }
+//                swipeableItem.shareAction = Consumer { item -> share(item) }
+//                items.add(swipeableItem)
+//                x++
+//            }
+//        }
         var x = 0
         val items = ArrayList<SwipeableDrawerItem>()
-        for (s in ALPHABET) {
-            val count = Random().nextInt(20)
-            for (i in 1..count) {
-                val swipeableItem = SwipeableDrawerItem().withName("$s Test $x")
-                swipeableItem.identifier = (100 + x).toLong()
-                swipeableItem.withIsSwipeable(i % 5 != 0)
-                swipeableItem.withIsDraggable(i % 5 != 0)
+        var dummyItems = mutableMapOf<String,Long?>()
+        dummyItems["Mexidol"] = 30
+        dummyItems["Anki"] = 90
+        dummyItems["Mediation"] = 300
+
+        for (s in dummyItems) {
+                val swipeableItem = SwipeableDrawerItem().withName("${s.key}")
+                swipeableItem.identifier = x.toLong()
+                swipeableItem.duration = s.value
+//                swipeableItem.withIsSwipeable(x % 5 != 0) //123
+//                swipeableItem.withIsDraggable(x % 5 != 0) //123
+                swipeableItem.withIsSwipeable(true)
+                swipeableItem.withIsDraggable(true)
+
                 swipeableItem.deleteAction = Consumer { item -> delete(item) }
                 swipeableItem.archiveAction = Consumer { item -> archive(item) }
                 swipeableItem.shareAction = Consumer { item -> share(item) }
                 items.add(swipeableItem)
                 x++
-            }
+
         }
         fastItemDrawerAdapter.add(items)
 
