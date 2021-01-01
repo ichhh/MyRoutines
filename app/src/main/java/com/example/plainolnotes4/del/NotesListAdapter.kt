@@ -1,14 +1,15 @@
-package com.example.plainolnotes4
+package com.example.plainolnotes4.del
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.plainolnotes4.data.NoteEntity
+import com.example.plainolnotes4.R
 import com.example.plainolnotes4.databinding.ListItemBinding
 
 class NotesListAdapter(private val notesList: List<NoteEntity>,
-    private val listener: ListItemListener) :
+                       private val listener: ListItemListener
+) :
     RecyclerView.Adapter<NotesListAdapter.ViewHolder>() {
 
     val selectedNotes = arrayListOf<NoteEntity>()

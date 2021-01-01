@@ -1,4 +1,4 @@
-package com.example.plainolnotes4.data
+package com.example.plainolnotes4.del
 
 import androidx.room.TypeConverter
 import java.util.*

@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/itemsFragment">
 
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.example.plainolnotes4.MainFragment"
+        android:name="com.example.plainolnotes4.del.MainFragment"
         android:label="main_fragment"
         tools:layout="@layout/main_fragment" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/editorFragment"
-        android:name="com.example.plainolnotes4.EditorFragment"
+        android:name="com.example.plainolnotes4.del.EditorFragment"
         android:label="editor_fragment"
         tools:layout="@layout/editor_fragment" >
         <argument
@@ -24,4 +24,8 @@
             app:argType="integer"
             android:defaultValue="0" />
     </fragment>
+    <fragment
+        android:id="@+id/itemsFragment"
+        android:name="com.example.plainolnotes4.ItemsFragment"
+        android:label="ItemsFragment" />
 </navigation>

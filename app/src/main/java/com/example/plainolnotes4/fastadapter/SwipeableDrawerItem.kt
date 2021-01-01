@@ -17,15 +17,11 @@ import kotlin.time.Duration
 /**
  * Created by Robb on 2020-07-03
  */
-class SwipeableDrawerItem : AbstractItem<SwipeableDrawerItem.ViewHolder>(), ISwipeable, IDraggable {
+open class SwipeableDrawerItem() :
+    AbstractItem<SwipeableDrawerItem.ViewHolder>(), ISwipeable, IDraggable {
 
     var name: StringHolder? = null
     var description: StringHolder? = null
-
-    var duration: Long? = null
-    var pauseAfter: Boolean = false
-
-
 
     var deleteAction: Consumer<SwipeableDrawerItem>? = null
     var archiveAction: Consumer<SwipeableDrawerItem>? = null
