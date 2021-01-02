@@ -1,9 +1,9 @@
-package com.example.plainolnotes4.del
+package com.example.MyRoutine2.del
 
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.plainolnotes4.NEW_NOTE_ID
+import com.example.MyRoutine2.NEW_NOTE_ID
 import kotlinx.android.parcel.Parcelize
 import java.util.*
 

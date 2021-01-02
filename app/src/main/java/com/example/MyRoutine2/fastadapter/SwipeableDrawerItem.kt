@@ -1,17 +1,16 @@
-package com.example.plainolnotes4.fastadapter
+package com.example.MyRoutine2.fastadapter
 
 import android.view.View
 import android.widget.TextView
 import androidx.annotation.StringRes
 import androidx.recyclerview.widget.RecyclerView
-import com.example.plainolnotes4.R
+import com.example.MyRoutine2.R
 import com.mikepenz.fastadapter.drag.IDraggable
 import com.mikepenz.fastadapter.items.AbstractItem
 import com.mikepenz.fastadapter.swipe.IDrawerSwipeableViewHolder
 import com.mikepenz.fastadapter.swipe.ISwipeable
 import com.mikepenz.materialdrawer.holder.StringHolder
 import io.reactivex.functions.Consumer
-import kotlin.time.Duration
 
 
 /**

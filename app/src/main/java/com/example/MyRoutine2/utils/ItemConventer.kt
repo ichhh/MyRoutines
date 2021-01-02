@@ -1,10 +1,4 @@
-package com.example.plainolnotes4.utils
-
-import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
-import com.example.plainolnotes4.fastadapter.SwipeableDrawerItem
-import com.example.plainolnotes4.model.ItemEntity
-import io.reactivex.functions.Consumer
+package com.example.MyRoutine2.utils
 
 class ItemConventer {
     companion object{

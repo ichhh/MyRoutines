@@ -1,11 +1,11 @@
-package com.example.plainolnotes4.del
+package com.example.MyRoutine2.del
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.plainolnotes4.R
-import com.example.plainolnotes4.databinding.ListItemBinding
+import com.example.MyRoutine2.R
+import com.example.MyRoutine2.databinding.ListItemBinding
 
 class NotesListAdapter(private val notesList: List<NoteEntity>,
                        private val listener: ListItemListener

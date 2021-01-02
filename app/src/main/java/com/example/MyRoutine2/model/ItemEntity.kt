@@ -1,8 +1,7 @@
-package com.example.plainolnotes4.model
+package com.example.MyRoutine2.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.plainolnotes4.fastadapter.SwipeableDrawerItem
 
 
 @Entity(tableName = "items",

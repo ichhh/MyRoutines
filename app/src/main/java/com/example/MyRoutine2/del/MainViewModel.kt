@@ -1,10 +1,10 @@
-package com.example.plainolnotes4.del
+package com.example.MyRoutine2.del
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.plainolitems4.data.AppDatabase
-import com.example.plainolnotes4.model.ItemEntity
+import com.example.MyRoutine2.model.ItemEntity
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

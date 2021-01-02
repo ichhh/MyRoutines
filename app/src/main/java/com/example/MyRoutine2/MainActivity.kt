@@ -1,32 +1,7 @@
-package com.example.plainolnotes4
+package com.example.MyRoutine2
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
-import android.view.Menu
-import android.view.MenuItem
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.example.plainolnotes4.fastadapter.IDraggableViewHolder
-import com.example.plainolnotes4.fastadapter.SwipeableDrawerItem
-import com.mikepenz.fastadapter.adapters.FastItemAdapter
-import com.mikepenz.fastadapter.drag.ItemTouchCallback
-import com.mikepenz.fastadapter.drag.SimpleDragCallback
-import com.mikepenz.fastadapter.swipe.SimpleSwipeDrawerCallback
-import com.mikepenz.fastadapter.swipe_drag.SimpleSwipeDrawerDragCallback
-import com.mikepenz.fastadapter.utils.DragDropUtil
-import com.mikepenz.iconics.IconicsDrawable
-import com.mikepenz.iconics.utils.actionBar
-import com.mikepenz.iconics.utils.colorInt
-import com.mikepenz.material_design_iconic_typeface_library.MaterialDesignIconic
-import io.reactivex.functions.Consumer
-import kotlinx.android.synthetic.main.activity_sample.*
-import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

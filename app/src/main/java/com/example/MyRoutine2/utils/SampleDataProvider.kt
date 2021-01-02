@@ -1,9 +1,7 @@
 package com.example.plainolitems4.utils
 
 
-import com.example.plainolnotes4.fastadapter.SwipeableDrawerItem
-import com.example.plainolnotes4.model.ItemEntity
-import java.util.*
+import com.example.MyRoutine2.model.ItemEntity
 
 class SampleDataProvider {
 

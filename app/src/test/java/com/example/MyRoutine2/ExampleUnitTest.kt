@@ -1,4 +1,4 @@
-package com.example.plainolnotes4
+package com.example.MyRoutine2
 
 import org.junit.Test
 

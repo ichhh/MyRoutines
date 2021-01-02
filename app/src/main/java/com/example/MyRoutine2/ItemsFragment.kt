@@ -1,9 +1,10 @@
-package com.example.plainolnotes4
+package com.example.MyRoutine2
 
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -11,10 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.plainolitems4.ItemsFragmentViewModel
 import com.example.plainolitems4.utils.SampleDataProvider.Companion.getItems
-import com.example.plainolnotes4.databinding.MainFragmentBinding
-import com.example.plainolnotes4.fastadapter.IDraggableViewHolder
-import com.example.plainolnotes4.fastadapter.SwipeableDrawerItem
-import com.example.plainolnotes4.model.ItemEntity
+import com.example.MyRoutine2.databinding.MainFragmentBinding
+import com.example.MyRoutine2.fastadapter.IDraggableViewHolder
+import com.example.MyRoutine2.fastadapter.SwipeableDrawerItem
+import com.example.MyRoutine2.model.ItemEntity
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.drag.ItemTouchCallback
 import com.mikepenz.fastadapter.drag.SimpleDragCallback
@@ -22,8 +23,6 @@ import com.mikepenz.fastadapter.swipe.SimpleSwipeDrawerCallback
 import com.mikepenz.fastadapter.swipe_drag.SimpleSwipeDrawerDragCallback
 import com.mikepenz.fastadapter.utils.DragDropUtil
 import io.reactivex.functions.Consumer
-import kotlinx.android.synthetic.main.activity_sample.*
-import java.util.*
 
 //from activity to fragment
 class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.ItemSwipeCallback {
@@ -109,20 +108,13 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
 //        fastItemDrawerAdapter.add(items)
 
 
-//        viewModel.itemsList?.observe(viewLifecycleOwner, Observer {
-//////            Log.i("noteLogging", it.toString())
-////            adapter = NotesListAdapter(it, this@MainFragment)
-////            binding.recyclerView.adapter = adapter
-////            binding.recyclerView.layoutManager = LinearLayoutManager(activity)
-////
-////            val selectedNotes =
-////                savedInstanceState?.getParcelableArrayList<NoteEntity>(SELECTED_NOTES_KEY)
-////            adapter.selectedNotes.addAll(selectedNotes ?: emptyList())
-//        })
+        viewModel.itemsList?.observe(viewLifecycleOwner, Observer {
 
-//        viewModel.itemsList
-//        if()
-        fastItemDrawerAdapter.add(itemToSwipeableDrawerItem(getItems()))
+            if (it.size==0) {
+                viewModel.addSampleData()
+            }
+            fastItemDrawerAdapter.set(itemToSwipeableDrawerItem(it ?: emptyList()))
+        })
 
 
         //add drag and drop for item
@@ -155,9 +147,7 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
     fun itemToSwipeableDrawerItem(items: List<ItemEntity>):List<SwipeableDrawerItem>{
 
         var listOfSwipeable = mutableListOf<SwipeableDrawerItem>()
-
         var x = 0
-
         items.forEach {
 
             val swipeableItem = SwipeableDrawerItem().withName("${it.nameString}")
@@ -174,7 +164,6 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
             listOfSwipeable.add(swipeableItem)
             x++
         }
-
 
         return listOfSwipeable
     }
@@ -248,6 +237,8 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
             //this sample uses a filter. If a filter is used we should use the methods provided by the filter (to make sure filter and normal state is updated)
             fastItemDrawerAdapter.itemFilter.remove(position12)
             Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
+
+            viewModel.deleteItems(swipeableDrawerItemToItem(listOf(item))) //ich
         }
     }
 

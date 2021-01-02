@@ -1,4 +1,4 @@
-package com.example.plainolnotes4.del
+package com.example.MyRoutine2.del
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

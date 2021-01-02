@@ -1,8 +1,8 @@
-package com.example.plainolnotes4.data
+package com.example.MyRoutine2.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import com.example.plainolnotes4.model.ItemEntity
+import com.example.MyRoutine2.model.ItemEntity
 
 @Dao
 interface ItemDao {

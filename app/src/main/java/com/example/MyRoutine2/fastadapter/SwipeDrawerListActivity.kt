@@ -1,4 +1,4 @@
-package com.example.plainolnotes4.fastadapter
+package com.example.MyRoutine2.fastadapter
 
 import android.graphics.Color
 import android.os.Bundle
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.plainolnotes4.R
+import com.example.MyRoutine2.R
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 
 import com.mikepenz.fastadapter.drag.ItemTouchCallback

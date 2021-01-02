@@ -1,4 +1,4 @@
-package com.example.plainolnotes4.del//package com.example.plainolnotes4.del
+package com.example.MyRoutine2.del//package com.example.plainolnotes4.del
 //
 //import android.os.Bundle
 //import android.os.Handler
