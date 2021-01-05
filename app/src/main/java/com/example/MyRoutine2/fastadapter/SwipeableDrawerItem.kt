@@ -21,6 +21,9 @@ open class SwipeableDrawerItem() :
 
     var name: StringHolder? = null
     var description: StringHolder? = null
+    var duration: Long? = null
+    var pauseAfter: Boolean = false
+
 
     var deleteAction: Consumer<SwipeableDrawerItem>? = null
     var archiveAction: Consumer<SwipeableDrawerItem>? = null
@@ -84,8 +87,13 @@ open class SwipeableDrawerItem() :
 
         //set the text for the name
         StringHolder.applyTo(name, holder.name)
+
         //set the text for the description or hide
-        StringHolder.applyToOrHide(description, holder.description)
+//        StringHolder.applyToOrHide(duration, holder.duration) 123
+        StringHolder(duration.toString()).applyTo(holder.duration)
+
+
+
 
         holder.deleteActionRunnable = Runnable { deleteAction?.accept(this) }
         holder.archiveActionRunnable = Runnable { archiveAction?.accept(this) }
@@ -95,7 +103,7 @@ open class SwipeableDrawerItem() :
     override fun unbindView(holder: ViewHolder) {
         super.unbindView(holder)
         holder.name.text = null
-        holder.description.text = null
+        holder.duration.text = null
         holder.deleteActionRunnable = null
         holder.archiveActionRunnable = null
         holder.shareActionRunnable = null
@@ -111,10 +119,10 @@ open class SwipeableDrawerItem() :
      */
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view), IDraggableViewHolder, IDrawerSwipeableViewHolder {
         var name: TextView = view.findViewById(R.id.material_drawer_name)
-        var description: TextView = view.findViewById(R.id.material_drawer_description)
+        var duration: TextView = view.findViewById(R.id.tv_duration)
         var archiveBtn: View = view.findViewById(R.id.archive_btn)
         var deleteBtn: View = view.findViewById(R.id.delete_btn)
-        var shareBtn: View = view.findViewById(R.id.share_btn)
+//        var shareBtn: View = view.findViewById(R.id.share_btn)
         var itemContent: View = view.findViewById(R.id.item_content)
 
         var deleteActionRunnable: Runnable? = null
@@ -128,9 +136,9 @@ open class SwipeableDrawerItem() :
             archiveBtn.setOnClickListener {
                 archiveActionRunnable?.run()
             }
-            shareBtn.setOnClickListener {
-                shareActionRunnable?.run()
-            }
+//            shareBtn.setOnClickListener {
+//                shareActionRunnable?.run()
+//            }
         }
 
         override fun onDropped() {

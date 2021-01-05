@@ -1,4 +1,4 @@
-package com.example.MyRoutine2.fastadapter
+package com.example.MyRoutine2.del
 
 import android.graphics.Color
 import android.os.Bundle
@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.MyRoutine2.R
+import com.example.MyRoutine2.fastadapter.IDraggableViewHolder
+import com.example.MyRoutine2.fastadapter.SwipeableDrawerItem
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 
 import com.mikepenz.fastadapter.drag.ItemTouchCallback

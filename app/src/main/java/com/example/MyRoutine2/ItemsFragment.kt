@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.plainolitems4.ItemsFragmentViewModel
-import com.example.plainolitems4.utils.SampleDataProvider.Companion.getItems
+import com.example.MyRoutine2.viewmodel.ItemsFragmentViewModel
 import com.example.MyRoutine2.databinding.MainFragmentBinding
 import com.example.MyRoutine2.fastadapter.IDraggableViewHolder
 import com.example.MyRoutine2.fastadapter.SwipeableDrawerItem
@@ -43,7 +42,7 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = MainFragmentBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(ItemsFragmentViewModel::class.java)
@@ -68,49 +67,10 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
         rv.itemAnimator = DefaultItemAnimator()
         rv.adapter = fastItemDrawerAdapter
 
-        //fill with some sample data
 
-//        var x = 0
-//        val items = ArrayList<SwipeableDrawerItem>()
-//        for (s in ALPHABET) {
-//            val count = Random().nextInt(20)
-//            for (i in 1..count) {
-//                val swipeableItem = SwipeableDrawerItem().withName("$s Test $x")
-//                swipeableItem.identifier = (100 + x).toLong()
-//                swipeableItem.withIsSwipeable(i % 5 != 0)
-//                swipeableItem.withIsDraggable(i % 5 != 0)
-//                swipeableItem.deleteAction = Consumer { item -> delete(item) }
-//                swipeableItem.archiveAction = Consumer { item -> archive(item) }
-//                swipeableItem.shareAction = Consumer { item -> share(item) }
-//                items.add(swipeableItem)
-//                x++
-//            }
-//        }
-
-
-//        var x = 0
-//        val items = ArrayList<SwipeableDrawerItem>()
-//        for (s in getItems()) {
-//            val swipeableItem = SwipeableDrawerItem().withName("${s.nameString}")
-//            swipeableItem.identifier = x.toLong()
-////                swipeableItem.duration = s.value
-////                swipeableItem.withIsSwipeable(x % 5 != 0) //123
-////                swipeableItem.withIsDraggable(x % 5 != 0) //123
-//            swipeableItem.withIsSwipeable(true)
-//            swipeableItem.withIsDraggable(true)
-//
-//            swipeableItem.deleteAction = Consumer { item -> delete(item) }
-//            swipeableItem.archiveAction = Consumer { item -> archive(item) }
-//            swipeableItem.shareAction = Consumer { item -> share(item) }
-//            items.add(swipeableItem)
-//            x++
-//        }
-//        fastItemDrawerAdapter.add(items)
-
-
-        viewModel.itemsList?.observe(viewLifecycleOwner, Observer {
-
+        viewModel.itemsList?.observe(viewLifecycleOwner, {
             if (it.size==0) {
+                //fill with some sample data
                 viewModel.addSampleData()
             }
             fastItemDrawerAdapter.set(itemToSwipeableDrawerItem(it ?: emptyList()))
@@ -146,13 +106,15 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
 
     fun itemToSwipeableDrawerItem(items: List<ItemEntity>):List<SwipeableDrawerItem>{
 
-        var listOfSwipeable = mutableListOf<SwipeableDrawerItem>()
+        val listOfSwipeable = mutableListOf<SwipeableDrawerItem>()
         var x = 0
         items.forEach {
 
             val swipeableItem = SwipeableDrawerItem().withName("${it.nameString}")
             swipeableItem.identifier = it.id
-//                swipeableItem.duration = s.value
+            swipeableItem.duration = it.duration
+            swipeableItem.pauseAfter = it.pauseAfter
+
 //                swipeableItem.withIsSwipeable(x % 5 != 0) //123
 //                swipeableItem.withIsDraggable(x % 5 != 0) //123
             swipeableItem.withIsSwipeable(true)
@@ -175,7 +137,7 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
         var x = 0
 
         itemsSwipeable.forEach {
-            val item = ItemEntity(it.identifier,it.name.toString())
+            val item = ItemEntity(it.identifier,it.name.toString(),it.duration,it.pauseAfter)
             listOfItem.add(item)
         }
 
