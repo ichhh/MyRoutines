@@ -5,7 +5,7 @@
     <string name="add_sample_data">Add sample data</string>
     <string name="delete_all_notes">Delete all notes</string>
     <string name="new_note">New note</string>
-    <string name="edit_note">Edit note</string>
+    <string name="edit_item">Edit item</string>
 
 
     <string name="sample_paged_list">PagedList Sample</string>
@@ -56,4 +56,8 @@
     <string name="action_undo">UNDO</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="new_item">new item</string>
+    <string name="ItemEditName_Hint">item name</string>
+    <string name="ItemEditDuration_Hint">duration</string>
+    <string name="pause_when_time_runs_out">pause when time runs out</string>
 </resources>

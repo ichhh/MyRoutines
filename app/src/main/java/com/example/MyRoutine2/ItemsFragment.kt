@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +22,7 @@ import com.mikepenz.fastadapter.swipe.SimpleSwipeDrawerCallback
 import com.mikepenz.fastadapter.swipe_drag.SimpleSwipeDrawerDragCallback
 import com.mikepenz.fastadapter.utils.DragDropUtil
 import io.reactivex.functions.Consumer
+import kotlinx.android.synthetic.main.activity_main.*
 
 //from activity to fragment
 class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.ItemSwipeCallback {
@@ -95,6 +96,10 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
         //restore selections (this has to be done after the items were added)
         fastItemDrawerAdapter.withSavedInstanceState(savedInstanceState)
 
+        binding.fab.setOnClickListener {
+            editCreateItem(NEW_ITEM_ID)
+        }
+
         //123
 //        //set the back arrow in the toolbar
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -102,6 +107,15 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
 
 //        return super.onCreateView(inflater, container, savedInstanceState)
         return binding.root
+    }
+
+    private fun editCreateItem(newItemId: Long) {
+
+        val action = ItemsFragmentDirections
+            .actionItemsFragmentToItemEditDialog(itemId = NEW_ITEM_ID)
+        findNavController().navigate(action)
+
+
     }
 
     fun itemToSwipeableDrawerItem(items: List<ItemEntity>):List<SwipeableDrawerItem>{

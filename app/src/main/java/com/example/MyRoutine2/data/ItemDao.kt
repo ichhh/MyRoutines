@@ -19,7 +19,7 @@ interface ItemDao {
     fun getAll(): LiveData<List<ItemEntity>>
 
     @Query("SELECT * FROM items WHERE id = :id")
-    fun getItemById(id: Int): ItemEntity?
+    fun getItemById(id: Long): ItemEntity?
 
     @Query("SELECT COUNT(*) from items")
     fun getCount(): Int
