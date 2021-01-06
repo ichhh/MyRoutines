@@ -15,7 +15,7 @@
         android:visibility="visible">
 
         <TextView
-            android:id="@+id/archive_btn"
+            android:id="@+id/edit_btn"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:background="@android:color/holo_blue_light"
@@ -33,6 +33,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:targetApi="jelly_bean_mr1" />
+
+<!--        <TextView-->
+<!--            android:id="@+id/share_btn"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@android:color/holo_green_dark"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true"-->
+<!--            android:fontFamily="sans-serif-medium"-->
+<!--            android:gravity="center"-->
+<!--            android:lines="1"-->
+<!--            android:padding="8dp"-->
+<!--            android:singleLine="true"-->
+<!--            android:text="Share"-->
+<!--            android:textColor="@android:color/primary_text_dark"-->
+<!--            android:textDirection="anyRtl"-->
+<!--            android:textSize="@dimen/material_drawer_item_primary_text"-->
+
+<!--            app:layout_constraintStart_toEndOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            android:visibility="invisible"-->
+<!--            />-->
+        <!--            app:layout_constraintStart_toEndOf="@id/archive_btn"-->
 
         <TextView
             android:id="@+id/delete_btn"
@@ -54,50 +77,57 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:targetApi="jelly_bean_mr1" />
 
+        <LinearLayout
+            android:id="@+id/item_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?android:colorBackground"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:foreground="?android:selectableItemBackground"
+            android:gravity="center_vertical|start"
+            android:paddingStart="@dimen/material_drawer_vertical_padding"
+            android:paddingLeft="@dimen/material_drawer_vertical_padding"
+            android:paddingEnd="@dimen/material_drawer_vertical_padding"
+            android:paddingRight="@dimen/material_drawer_vertical_padding"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+            <TextView
+                android:id="@+id/material_drawer_name"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical|start"
+                android:lines="1"
+                android:singleLine="true"
+                android:textDirection="anyRtl"
+                android:textSize="@dimen/material_drawer_item_primary_text"
+                tools:targetApi="jelly_bean_mr1"
+                tools:text="Some drawer text" />
+
+            <TextView
+                android:id="@+id/tv_duration"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:gravity="center_vertical|end"
+                android:lines="1"
+                android:singleLine="true"
+                android:textDirection="anyRtl"
+                android:textSize="@dimen/material_drawer_item_primary_description"
+                tools:targetApi="jelly_bean_mr1"
+                tools:text="duration"
+
+                />
+
+        </LinearLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <LinearLayout
-        android:id="@+id/item_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="?android:colorBackground"
-        android:clickable="true"
-        android:elevation="4dp"
-        android:focusable="true"
-        android:foreground="?android:selectableItemBackground"
-        android:gravity="center_vertical|start"
-        android:paddingStart="@dimen/material_drawer_vertical_padding"
-        android:paddingLeft="@dimen/material_drawer_vertical_padding"
-        android:paddingEnd="@dimen/material_drawer_vertical_padding"
-        android:paddingRight="@dimen/material_drawer_vertical_padding"
-        android:visibility="visible"
-        tools:visibility="visible">
-
-        <TextView
-            android:id="@+id/material_drawer_name"
-            android:layout_width="240dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center_vertical|start"
-            android:lines="1"
-            android:singleLine="true"
-            android:textDirection="anyRtl"
-            android:textSize="@dimen/material_drawer_item_primary_text"
-            tools:targetApi="jelly_bean_mr1"
-            tools:text="Some drawer text" />
-
-        <TextView
-            android:id="@+id/tv_duration"
-            android:layout_width="74dp"
-            android:layout_height="wrap_content"
-            android:fontFamily="sans-serif"
-            android:gravity="center_vertical|start"
-            android:lines="1"
-            android:singleLine="true"
-            android:textDirection="anyRtl"
-            android:textSize="@dimen/material_drawer_item_primary_description"
-            tools:targetApi="jelly_bean_mr1"
-            tools:text="duration" />
-
-    </LinearLayout>
 </FrameLayout>

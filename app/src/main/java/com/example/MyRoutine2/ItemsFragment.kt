@@ -85,7 +85,7 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
             this)
             .withNotifyAllDrops(true)
             .withSwipeLeft(80) // Width of delete button
-            .withSwipeRight(160) // Width of archive and share buttons
+            .withSwipeRight(80) // Width of archive and share buttons
             .withSensitivity(10f)
             .withSurfaceThreshold(0.3f)
 
@@ -122,7 +122,7 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
 
             swipeableItem.deleteAction = Consumer { item -> delete(item) }
             swipeableItem.archiveAction = Consumer { item -> archive(item) }
-            swipeableItem.shareAction = Consumer { item -> share(item) }
+            //swipeableItem.shareAction = Consumer { item -> share(item) }
             listOfSwipeable.add(swipeableItem)
             x++
         }
@@ -213,13 +213,13 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
         }
     }
 
-    private fun share(item: SwipeableDrawerItem) {
-        val position12 = fastItemDrawerAdapter.getAdapterPosition(item)
-        if (position12 != RecyclerView.NO_POSITION) {
-            // Do something intelligent here
-            Toast.makeText(context, "Shared", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    private fun share(item: SwipeableDrawerItem) {
+//        val position12 = fastItemDrawerAdapter.getAdapterPosition(item)
+//        if (position12 != RecyclerView.NO_POSITION) {
+//            // Do something intelligent here
+//            Toast.makeText(context, "Shared", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
