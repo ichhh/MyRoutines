@@ -1,7 +1,8 @@
-package com.example.MyRoutine2.viewmodel//package com.example.plainolnotes4.del
+package com.example.MyRoutine2.viewmodel//package com.example.plainolitems4.del
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.MyRoutine2.NEW_ITEM_ID
 import com.example.MyRoutine2.model.ItemEntity
@@ -11,30 +12,25 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ItemEditViewModel(app: Application) : AndroidViewModel(app) {
+class ItemEditDialogViewModel(app: Application) : AndroidViewModel(app) {
 
     private val database = AppDatabase.getInstance(app)
+    val currentItem = MutableLiveData<ItemEntity>()
 
-    //val itemsList = database?.itemDao()?.getAll()
 
-    fun addSampleData() {
+    fun getItemById(itemId: Long) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                //val sampleItems = SampleDataProvider.getItems()
-//                val sampleItems = DummyContent.ITEMS_LIST
-//                database?.itemDao()?.insertAll(sampleItems)
-
-                //if it's new
-                //database?.itemDao()?.getItemById(progragId)
-                //else
-                //insertItem?.itemDao()?.getItemById(progragId)
-
-
-
+                val item =
+                    if (itemId != NEW_ITEM_ID) {
+                        database?.itemDao()?.getItemById(itemId)
+                    } else {
+                        ItemEntity()
+                    }
+                currentItem.postValue(item)
             }
         }
     }
-
 
     fun insertItem(nameString: String, itemId: Long, duration:Long? = null, pauseAfter: Boolean = false) {
         viewModelScope.launch {
@@ -57,4 +53,27 @@ class ItemEditViewModel(app: Application) : AndroidViewModel(app) {
         }
     }
 
+    fun updateItem() {
+        currentItem.value?.let {
+            it.nameString = it.nameString.trim()
+            if (it.id == NEW_ITEM_ID && it.nameString.isEmpty()) {
+                return
+            }
+
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    if (it.nameString.isEmpty()) {
+                        database?.itemDao()?.deleteItem(it)
+                    } else {
+                        database?.itemDao()?.insertItem(it)
+                    }
+                }
+            }
+
+        }
+
+
+    }
+    
+    
 }

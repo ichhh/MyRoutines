@@ -1,33 +1,48 @@
 package com.example.MyRoutine2.dialog
 
+import android.app.Activity
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.MyRoutine2.NEW_ITEM_ID
-import com.example.MyRoutine2.R
+import com.example.MyRoutine2.*
 import com.example.MyRoutine2.databinding.ItemEditDialogBinding
-import com.example.MyRoutine2.viewmodel.ItemEditViewModel
-import java.text.DateFormat.getTimeInstance
-import java.text.SimpleDateFormat
+import com.example.MyRoutine2.viewmodel.ItemEditDialogViewModel
 
 
 class ItemEditDialog : DialogFragment() {
 
-    private lateinit var viewModel: ItemEditViewModel
-//    private var mHost: ItemEditDialogListener? = null
+    private lateinit var viewModel: ItemEditDialogViewModel
     private val args: ItemEditDialogArgs by navArgs()
     private lateinit var binding: ItemEditDialogBinding
 
-
+    //    private var mHost: ItemEditDialogListener? = null
     interface ItemEditDialogListener {
         fun onItemEditDialogResult(ItemId: Int)
     }
 
+    //    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        mHost = activity as ItemEditDialogListener
+    //    }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(ItemEditDialogViewModel::class.java)
+
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Create the custom layout using the LayoutInflater class
@@ -36,24 +51,61 @@ class ItemEditDialog : DialogFragment() {
 
         binding = ItemEditDialogBinding.inflate(LayoutInflater.from(context))
 
-        requireActivity().title =
-            if (args.itemId == NEW_ITEM_ID) {
+
+//        requireActivity().onBackPressedDispatcher.addCallback(
+//            viewLifecycleOwner,
+//            object : OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    saveAndReturn()
+//                }
+//            }
+//        )
+
+
+        viewModel.currentItem.observe(this, Observer {
+
+            binding.etItemName.setText(
+                savedInstanceState?.getString(ITEM_NAME_KEY) ?: it.nameString
+            )
+            binding.etDuration.setText(
+                savedInstanceState?.getString(ITEM_DURATION_KEY) ?: if (it.duration==null || it.duration!!.toInt()==0) "" else it.duration.toString()
+            )
+            binding.cbPauseafter.isChecked =
+                savedInstanceState?.getBoolean(ITEM_DURATION_KEY) ?: it.pauseAfter
+
+            binding.etItemName.setSelection(savedInstanceState?.getInt(CURSOR_POSITION_KEY) ?: 0)
+        })
+        viewModel.getItemById(args.itemId)
+
+
+        requireActivity().title = if (args.itemId == NEW_ITEM_ID) {
                 getString(R.string.new_item)
             } else {
                 getString(R.string.edit_item)
             }
 
+//        // Build the dialog
+//        binding.etItemName.setText(
+//            if (args.itemId == NEW_ITEM_ID) getString(R.string.new_item) else viewModel.currentItem.value?.nameString
+//        )
+//        binding.etDuration.setText(viewModel.currentItem.value?.duration.toString() ?: "")
+//        binding.cbPauseafter.isChecked = viewModel.currentItem.value?.pauseAfter ?: false
 
-        // Build the dialog
-        binding.etItemName.setText(
-            if (args.itemId == NEW_ITEM_ID) {
-                getString(R.string.new_item)
-            } else {
-                args.itemName
-            }
-        )
-        binding.etDuration.setText(args.itemDuration.toString())
-        binding.cbPauseafter.isChecked = args.itemPauseAfter
+
+
+
+
+
+
+//        binding.etItemName.setText(
+//            if (args.itemId == NEW_ITEM_ID) getString(R.string.new_item) else args.itemName
+//        )
+//        binding.etDuration.setText(args.itemDuration.toString() ?: "")
+//        binding.cbPauseafter.isChecked = args.itemPauseAfter ?: false
+
+
+
+
 
 
 //        binding.etItemName.hint = if (args.ItemId !== NEW_ENTITY_ID) {
@@ -68,43 +120,64 @@ class ItemEditDialog : DialogFragment() {
 //            .setView(v)
             .setView(binding.root)
             .setPositiveButton("OK") { dialog, which ->
-                viewModel.insertItem(
-                    binding.etItemName.text.toString(),
-                    args.itemId,
-//                    getTimeInstance().parse(binding.etDuration.text.toString())?.time,
-                    binding.etDuration.text.toString().toLong(),
-                    binding.cbPauseafter.isChecked
-                )
-                //viewModel.insertItem(binding.etItemName.text.toString(), NEW_ENTITY_ID)
-                //     .setNegativeButton("Cancel") { dialog, which -> Log.i(TAG, "Cancel clicked")
+                saveAndReturn()
+//                viewModel.insertItem(
+//                    binding.etItemName.text.toString(),
+//                    args.itemId,
+////                    getTimeInstance().parse(binding.etDuration.text.toString())?.time,
+//                    binding.etDuration.text.toString().toLong(),
+//                    binding.cbPauseafter.isChecked
+//                )
             }
+        //     .setNegativeButton("Cancel") { dialog, which -> Log.i(TAG, "Cancel clicked")
+
 
         return builder.create()
     }
 
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        mHost = activity as ItemEditDialogListener
-//    }
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(ItemEditViewModel::class.java)
+
+
+
     }
 
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+    }
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//
-//        binding = ItemEditDialogFragmentBinding.inflate(inflater,container,false)
-////        binding = ItemEditDialogFragmentBinding.inflate(LayoutInflater.from(, R.layout.Item_edit_dialog_fragment, null, false)
-//        return binding.root
-////        return super.onCreateView(inflater, container, savedInstanceState)
-//
-//    }
+    private fun saveAndReturn(): Boolean {
 
+        val imm = requireActivity()
+            .getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+
+        viewModel.currentItem.value?.nameString = binding.etItemName.text.toString()
+        viewModel.currentItem.value?.duration = if (binding.etDuration?.text.toString() =="") 0L else binding.etDuration?.text.toString().toLong()
+        viewModel.currentItem.value?.pauseAfter = binding.cbPauseafter.isChecked
+
+        viewModel.updateItem()
+
+        findNavController().navigateUp()
+        return true
+
+    }
 }
+
+//onAttach
+//onCreate
+//onCreateDialog
+//onCreateView
+//onActivityCreated
+//onStart
+//onResume

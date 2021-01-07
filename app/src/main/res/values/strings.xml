@@ -56,7 +56,7 @@
     <string name="action_undo">UNDO</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
-    <string name="new_item">new item</string>
+    <string name="new_item"></string>
     <string name="ItemEditName_Hint">item name</string>
     <string name="ItemEditDuration_Hint">duration</string>
     <string name="pause_when_time_runs_out">pause when time runs out</string>

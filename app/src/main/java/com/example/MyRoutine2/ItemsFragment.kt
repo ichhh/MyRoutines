@@ -22,7 +22,6 @@ import com.mikepenz.fastadapter.swipe.SimpleSwipeDrawerCallback
 import com.mikepenz.fastadapter.swipe_drag.SimpleSwipeDrawerDragCallback
 import com.mikepenz.fastadapter.utils.DragDropUtil
 import io.reactivex.functions.Consumer
-import kotlinx.android.synthetic.main.activity_main.*
 
 //from activity to fragment
 class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.ItemSwipeCallback {
@@ -86,7 +85,7 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
             this)
             .withNotifyAllDrops(true)
             .withSwipeLeft(80) // Width of delete button
-            .withSwipeRight(80) // Width of archive and share buttons
+            .withSwipeRight(80) // Width of edit and share buttons
             .withSensitivity(10f)
             .withSurfaceThreshold(0.3f)
 
@@ -109,13 +108,11 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
         return binding.root
     }
 
-    private fun editCreateItem(newItemId: Long) {
+    private fun editCreateItem(itemId: Long) {
 
         val action = ItemsFragmentDirections
-            .actionItemsFragmentToItemEditDialog(itemId = NEW_ITEM_ID)
+            .actionItemsFragmentToItemEditDialog(itemId = itemId)
         findNavController().navigate(action)
-
-
     }
 
     fun itemToSwipeableDrawerItem(items: List<ItemEntity>):List<SwipeableDrawerItem>{
@@ -135,7 +132,7 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
             swipeableItem.withIsDraggable(true)
 
             swipeableItem.deleteAction = Consumer { item -> delete(item) }
-            swipeableItem.archiveAction = Consumer { item -> archive(item) }
+            swipeableItem.editAction = Consumer { item -> edit(item) }
             //swipeableItem.shareAction = Consumer { item -> share(item) }
             listOfSwipeable.add(swipeableItem)
             x++
@@ -218,12 +215,11 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
         }
     }
 
-    private fun archive(item: SwipeableDrawerItem) {
-        item.archiveAction = null
+    private fun edit(item: SwipeableDrawerItem) {
+        item.editAction = null
         val position12 = fastItemDrawerAdapter.getAdapterPosition(item)
         if (position12 != RecyclerView.NO_POSITION) {
-            // Do something intelligent here
-            Toast.makeText(context, "Archived", Toast.LENGTH_SHORT).show()
+            editCreateItem(item.identifier)
         }
     }
 

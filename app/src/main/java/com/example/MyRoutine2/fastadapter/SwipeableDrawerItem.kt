@@ -26,7 +26,7 @@ open class SwipeableDrawerItem() :
 
 
     var deleteAction: Consumer<SwipeableDrawerItem>? = null
-    var archiveAction: Consumer<SwipeableDrawerItem>? = null
+    var editAction: Consumer<SwipeableDrawerItem>? = null
 //    var shareAction: Consumer<SwipeableDrawerItem>? = null
     override var isSwipeable = true
     override var isDraggable = true
@@ -94,7 +94,7 @@ open class SwipeableDrawerItem() :
 
 
         holder.deleteActionRunnable = Runnable { deleteAction?.accept(this) }
-        holder.archiveActionRunnable = Runnable { archiveAction?.accept(this) }
+        holder.editActionRunnable = Runnable { editAction?.accept(this) }
 //        holder.shareActionRunnable = Runnable { shareAction?.accept(this) }
     }
 
@@ -103,7 +103,7 @@ open class SwipeableDrawerItem() :
         holder.name.text = null
         holder.duration.text = null
         holder.deleteActionRunnable = null
-        holder.archiveActionRunnable = null
+        holder.editActionRunnable = null
 //        holder.shareActionRunnable = null
         holder.itemContent.translationX = 0f
     }
@@ -118,13 +118,13 @@ open class SwipeableDrawerItem() :
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view), IDraggableViewHolder, IDrawerSwipeableViewHolder {
         var name: TextView = view.findViewById(R.id.material_drawer_name)
         var duration: TextView = view.findViewById(R.id.tv_duration)
-        var archiveBtn: View = view.findViewById(R.id.edit_btn)
+        var editBtn: View = view.findViewById(R.id.edit_btn)
         var deleteBtn: View = view.findViewById(R.id.delete_btn)
 //        var shareBtn: View = view.findViewById(R.id.share_btn)
         var itemContent: View = view.findViewById(R.id.item_content)
 
         var deleteActionRunnable: Runnable? = null
-        var archiveActionRunnable: Runnable? = null
+        var editActionRunnable: Runnable? = null
 //        var shareActionRunnable: Runnable? = null
 
 
@@ -132,8 +132,8 @@ open class SwipeableDrawerItem() :
             deleteBtn.setOnClickListener {
                 deleteActionRunnable?.run()
             }
-            archiveBtn.setOnClickListener {
-                archiveActionRunnable?.run()
+            editBtn.setOnClickListener {
+                editActionRunnable?.run()
             }
 //            shareBtn.setOnClickListener {
 //                shareActionRunnable?.run()
