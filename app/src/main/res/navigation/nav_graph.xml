@@ -9,7 +9,7 @@
         android:id="@+id/itemsFragment"
         android:name="com.example.MyRoutine2.ItemsFragment"
         android:label="ItemsFragment"
-        tools:layout="@layout/main_fragment">
+        tools:layout="@layout/items_fragment">
         <action
             android:id="@+id/action_itemsFragment_to_itemEditDialog"
             app:destination="@id/itemEditDialog">
@@ -23,6 +23,9 @@
                 android:name="item_pause_after"
                 android:defaultValue="false" />
         </action>
+        <action
+            android:id="@+id/action_itemsFragment_to_timerFragment"
+            app:destination="@id/timerFragment" />
     </fragment>
     <dialog
         android:id="@+id/itemEditDialog"
@@ -45,4 +48,13 @@
             android:defaultValue="false" />
 
     </dialog>
+    <fragment
+        android:id="@+id/timerFragment"
+        android:name="com.example.MyRoutine2.TimerFragment"
+        android:label="TimerFragment"
+        tools:layout="@layout/timer_fragment">
+        <argument
+            android:name="item_id"
+            app:argType="long" />
+    </fragment>
 </navigation>

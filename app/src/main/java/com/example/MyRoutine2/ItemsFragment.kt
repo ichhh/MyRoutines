@@ -10,8 +10,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.MyRoutine2.databinding.ItemsFragmentBinding
 import com.example.MyRoutine2.viewmodel.ItemsFragmentViewModel
-import com.example.MyRoutine2.databinding.MainFragmentBinding
+
 import com.example.MyRoutine2.fastadapter.IDraggableViewHolder
 import com.example.MyRoutine2.fastadapter.SwipeableDrawerItem
 import com.example.MyRoutine2.model.ItemEntity
@@ -27,7 +28,7 @@ import io.reactivex.functions.Consumer
 class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.ItemSwipeCallback {
 
     private lateinit var viewModel: ItemsFragmentViewModel
-    private lateinit var binding: MainFragmentBinding
+    private lateinit var binding: ItemsFragmentBinding
 
     private lateinit var rv: RecyclerView
 
@@ -44,7 +45,7 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
         savedInstanceState: Bundle?
     ): View {
 
-        binding = MainFragmentBinding.inflate(inflater, container, false)
+        binding = ItemsFragmentBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(ItemsFragmentViewModel::class.java)
 
         rv = binding.recyclerView
@@ -255,9 +256,6 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
         }
     }
 
-    companion object {
-        private val ALPHABET = arrayOf("A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z")
-    }
 
     override fun itemSwiped(position: Int, direction: Int) {
         var directionStr = ""
@@ -269,4 +267,6 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
     override fun itemUnswiped(position: Int) {
         println("Item $position unswiped")
     }
+
+
 }
