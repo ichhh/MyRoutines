@@ -59,17 +59,23 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
         //create our FastAdapter which will manage everything
         fastItemDrawerAdapter = FastItemAdapter()
 
-        fastItemDrawerAdapter.onClickListener = { v: View?, _: IAdapter<SwipeableDrawerItem>, item: SwipeableDrawerItem, position: Int ->
-            if (v != null) {
-
-//                val action = ItemsFragmentDirections
-//                    .actionItemsFragmentToTimerFragment(item.identifier)
-//                findNavController().navigate(action)
-
-                Toast.makeText(v.context, position.toString(), Toast.LENGTH_SHORT).show()
-            }
+//        fastItemDrawerAdapter.onClickListener = { v: View?, _: IAdapter<SwipeableDrawerItem>, item: SwipeableDrawerItem, position: Int ->
+//            if (v != null) {
+//
+////                val action = ItemsFragmentDirections
+////                    .actionItemsFragmentToTimerFragment(item.identifier)
+////                findNavController().navigate(action)
+//
+//                Toast.makeText(v.context, position.toString(), Toast.LENGTH_SHORT).show()
+//            }
+//            false
+//        }
+        fastItemDrawerAdapter.onClickListener = { view, adapter, item, position ->
+            Toast.makeText(view?.context, position.toString(), Toast.LENGTH_SHORT).show()
             false
         }
+
+
         //configure the itemAdapter
         fastItemDrawerAdapter.itemFilter.filterPredicate = { item: SwipeableDrawerItem, constraint: CharSequence? ->
             item.name?.textString.toString().contains(constraint.toString(), ignoreCase = true)
