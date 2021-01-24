@@ -7,6 +7,8 @@ const val ITEM_DURATION_KEY = "ITEM_DURATION_KEY"
 const val CURSOR_POSITION_KEY = "cursorPositionKey"
 const val SELECTED_NOTES_KEY = "selectedNotesKey"
 
+const val ITEM_NAME_KEY_PREVIOUS = "ITEM_NAME_KEY_PREVIOUS"
+const val ITEM_NAME_KEY_NEXT = "ITEM_NAME_KEY_NEXT"
 
 const val ITEM_DB_NAME = "items.db"
 const val ITEM_DB_VERSION = 1

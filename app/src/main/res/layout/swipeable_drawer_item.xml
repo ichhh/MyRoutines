@@ -9,8 +9,8 @@
         android:id="@+id/swipe_result_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clickable="false"
-        android:focusable="false"
+        android:clickable="true"
+        android:focusable="true"
         android:gravity="center_vertical"
         android:visibility="visible">
 
@@ -100,7 +100,7 @@
 
             <TextView
                 android:id="@+id/material_drawer_name"
-                android:layout_width="240dp"
+                android:layout_width="290dp"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-medium"
                 android:gravity="center_vertical|start"

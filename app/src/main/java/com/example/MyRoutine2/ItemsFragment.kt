@@ -16,6 +16,7 @@ import com.example.MyRoutine2.viewmodel.ItemsFragmentViewModel
 import com.example.MyRoutine2.fastadapter.IDraggableViewHolder
 import com.example.MyRoutine2.fastadapter.SwipeableDrawerItem
 import com.example.MyRoutine2.model.ItemEntity
+import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.drag.ItemTouchCallback
 import com.mikepenz.fastadapter.drag.SimpleDragCallback
@@ -57,6 +58,18 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
 
         //create our FastAdapter which will manage everything
         fastItemDrawerAdapter = FastItemAdapter()
+
+        fastItemDrawerAdapter.onClickListener = { v: View?, _: IAdapter<SwipeableDrawerItem>, item: SwipeableDrawerItem, position: Int ->
+            if (v != null) {
+
+//                val action = ItemsFragmentDirections
+//                    .actionItemsFragmentToTimerFragment(item.identifier)
+//                findNavController().navigate(action)
+
+                Toast.makeText(v.context, position.toString(), Toast.LENGTH_SHORT).show()
+            }
+            false
+        }
         //configure the itemAdapter
         fastItemDrawerAdapter.itemFilter.filterPredicate = { item: SwipeableDrawerItem, constraint: CharSequence? ->
             item.name?.textString.toString().contains(constraint.toString(), ignoreCase = true)

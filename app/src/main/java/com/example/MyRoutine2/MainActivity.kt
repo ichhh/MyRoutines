@@ -10,9 +10,14 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-// TODO: 08.01.2021 clicking
+
+
+
+
+// TODO: 24.01.2021 click→timerFreagment→timeSetting
 // TODO: 08.01.2021 RV in RV 
 
+// TODO: 24.01.2021 private val database = AppDatabase.getInstance(app) once in the app (now its in every VM)
 
 // TODO: 08.01.2021 action bar - name of app at least
 // TODO: 08.01.2021 voice control - pause/finish/start program/next item 

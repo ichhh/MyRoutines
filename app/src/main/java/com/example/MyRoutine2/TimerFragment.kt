@@ -7,7 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.navigation.fragment.navArgs
 import com.example.MyRoutine2.databinding.TimerFragmentBinding
+import com.example.MyRoutine2.dialog.ItemEditDialogArgs
+import com.example.MyRoutine2.model.ItemEntity
+import com.example.MyRoutine2.viewmodel.ItemEditDialogViewModel
 import com.example.MyRoutine2.viewmodel.TimerFragmentViewModel
 
 
@@ -19,22 +24,42 @@ class TimerFragment : Fragment() {
 
 
     private lateinit var binding: TimerFragmentBinding
-
-    companion object {
-        fun newInstance() = TimerFragment()
-    }
-
     private lateinit var viewModel: TimerFragmentViewModel
+    private val args: TimerFragmentArgs by navArgs()
+
+//    companion object {
+//        fun newInstance() = TimerFragment()
+//    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
+//        var time = 0;
+
+        viewModel.currentItem.observe(viewLifecycleOwner, Observer {
+
+            binding.tvName.setText(
+                savedInstanceState?.getString(ITEM_NAME_KEY) ?: it.nameString
+            )
+
+            binding.tvPrevItem.setText(
+                savedInstanceState?.getString(ITEM_NAME_KEY_PREVIOUS) ?: viewModel.prevItemName
+            )
+            binding.tvNextItem.setText(
+                savedInstanceState?.getString(ITEM_NAME_KEY_NEXT) ?: viewModel.nextItemName
+            )
+
+            setTimer(it.duration!!.toInt() )
+
+        })
+        viewModel.getItemById(args.itemId)
 
 
         // return inflater.inflate(R.layout.main_fragment, container, false)
         binding = TimerFragmentBinding.inflate(inflater,container,false)
 
-        setTimer(1000)
+
+
 
         val runnable = object : Runnable {
             override fun run() {
@@ -58,8 +83,6 @@ class TimerFragment : Fragment() {
             }
         }
 
-
-
         binding.bPlayPause.setOnClickListener(View.OnClickListener {
             if (countingDown) {
                 handler.removeCallbacks(runnable)
@@ -71,9 +94,6 @@ class TimerFragment : Fragment() {
                 countingDown = true
             }
         })
-
-
-
 
         return binding.root
     }
