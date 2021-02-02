@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="@dimen/material_drawer_item_primary">
 
@@ -62,8 +63,8 @@
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:background="@android:color/holo_red_dark"
-            android:clickable="false"
-            android:focusable="false"
+            android:clickable="true"
+            android:focusable="true"
             android:fontFamily="sans-serif-medium"
             android:gravity="center"
             android:lines="1"
@@ -83,8 +84,8 @@
             android:layout_height="match_parent"
             android:background="?android:colorBackground"
             android:elevation="4dp"
-            android:clickable="false"
-            android:focusable="false"
+            android:clickable="true"
+            android:focusable="true"
             android:foreground="?android:selectableItemBackground"
             android:gravity="center_vertical|start"
             android:paddingStart="@dimen/material_drawer_vertical_padding"

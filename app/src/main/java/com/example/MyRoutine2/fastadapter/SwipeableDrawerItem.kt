@@ -30,6 +30,7 @@ open class SwipeableDrawerItem() :
 //    var shareAction: Consumer<SwipeableDrawerItem>? = null
     override var isSwipeable = true
     override var isDraggable = true
+    override var isSelectable = true
 
     /**
      * defines the type defining this item. must be unique. preferably an id

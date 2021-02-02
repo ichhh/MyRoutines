@@ -11,15 +11,18 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.MyRoutine2.databinding.ItemsFragmentBinding
+
 import com.example.MyRoutine2.viewmodel.ItemsFragmentViewModel
 
 import com.example.MyRoutine2.fastadapter.IDraggableViewHolder
 import com.example.MyRoutine2.fastadapter.SwipeableDrawerItem
 import com.example.MyRoutine2.model.ItemEntity
+import com.mikepenz.fastadapter.FastAdapter
 import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.drag.ItemTouchCallback
 import com.mikepenz.fastadapter.drag.SimpleDragCallback
+import com.mikepenz.fastadapter.listeners.ClickEventHook
 import com.mikepenz.fastadapter.swipe.SimpleSwipeDrawerCallback
 import com.mikepenz.fastadapter.swipe_drag.SimpleSwipeDrawerDragCallback
 import com.mikepenz.fastadapter.utils.DragDropUtil
@@ -69,11 +72,11 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
 //                Toast.makeText(v.context, position.toString(), Toast.LENGTH_SHORT).show()
 //            }
 //            false
+////        }
+//        fastItemDrawerAdapter.onClickListener = { view, adapter, item, position ->
+//            Toast.makeText(view?.context, position.toString(), Toast.LENGTH_SHORT).show()
+//            false
 //        }
-        fastItemDrawerAdapter.onClickListener = { view, adapter, item, position ->
-            Toast.makeText(view?.context, position.toString(), Toast.LENGTH_SHORT).show()
-            false
-        }
 
 
         //configure the itemAdapter
@@ -81,6 +84,21 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
             item.name?.textString.toString().contains(constraint.toString(), ignoreCase = true)
         }
 
+        // just add an `EventHook` to your `FastAdapter` by implementing either a `ClickEventHook`, `LongClickEventHook`, `TouchEventHook`, `CustomEventHook`
+        fastItemDrawerAdapter.addEventHook(object : ClickEventHook<SwipeableDrawerItem>() {
+            override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
+                //return the views on which you want to bind this event
+                return if (viewHolder is SwipeableDrawerItem.ViewHolder) {
+                    viewHolder.itemContent
+                } else {
+                    null
+                }
+            }
+
+            override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<SwipeableDrawerItem>, item: SwipeableDrawerItem) {
+                Toast.makeText(view?.context, "${100+position}", Toast.LENGTH_SHORT).show()
+            }
+        })
 
         //get our recyclerView and do basic setup
         rv.layoutManager = LinearLayoutManager(context)
@@ -181,6 +199,9 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
         outState = fastItemDrawerAdapter.saveInstanceState(outState)
         super.onSaveInstanceState(outState)
     }
+
+
+
 
 //    override fun onOptionsItemSelected(item: MenuItem): Boolean {
 //        //handle the click on the back arrow click
