@@ -97,6 +97,8 @@ class ItemsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.
 
             override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<SwipeableDrawerItem>, item: SwipeableDrawerItem) {
                 Toast.makeText(view?.context, "${100+position}", Toast.LENGTH_SHORT).show()
+                findNavController().navigate(ItemsFragmentDirections.actionItemsFragmentToTimerFragment(item.identifier))
+
             }
         })
 

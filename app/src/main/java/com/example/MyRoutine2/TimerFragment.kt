@@ -9,10 +9,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import com.example.MyRoutine2.databinding.ItemsFragmentBinding
 import com.example.MyRoutine2.databinding.TimerFragmentBinding
 import com.example.MyRoutine2.dialog.ItemEditDialogArgs
 import com.example.MyRoutine2.model.ItemEntity
 import com.example.MyRoutine2.viewmodel.ItemEditDialogViewModel
+import com.example.MyRoutine2.viewmodel.ItemsFragmentViewModel
 import com.example.MyRoutine2.viewmodel.TimerFragmentViewModel
 
 
@@ -35,6 +37,9 @@ class TimerFragment : Fragment() {
                               savedInstanceState: Bundle?): View {
 
 //        var time = 0;
+
+
+        viewModel = ViewModelProvider(this).get(TimerFragmentViewModel::class.java)
 
         viewModel.currentItem.observe(viewLifecycleOwner, Observer {
 
