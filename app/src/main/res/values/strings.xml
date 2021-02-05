@@ -60,4 +60,9 @@
     <string name="ItemEditName_Hint">item name</string>
     <string name="ItemEditDuration_Hint">duration</string>
     <string name="pause_when_time_runs_out">pause when time runs out</string>
+    <string name="pause">PAUSE</string>
+    <string name="start">START</string>
+    <string name="previous">Previous</string>
+    <string name="play_pause">Play/Pause</string>
+    <string name="next">Next</string>
 </resources>
