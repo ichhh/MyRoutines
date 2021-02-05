@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.INVISIBLE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -121,6 +122,9 @@ class TimerFragment : Fragment() {
                 findNavController().navigate(action)
             }
         }
+
+        if (pauseAfter)
+            binding.tvPauseAfter.visibility = VISIBLE
 
         startCounting(runnable)
 

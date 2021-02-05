@@ -27,16 +27,6 @@ class ItemEditDialog : DialogFragment() {
     private val args: ItemEditDialogArgs by navArgs()
     private lateinit var binding: ItemEditDialogBinding
 
-    //    private var mHost: ItemEditDialogListener? = null
-    interface ItemEditDialogListener {
-        fun onItemEditDialogResult(ItemId: Int)
-    }
-
-    //    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        mHost = activity as ItemEditDialogListener
-    //    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -50,17 +40,6 @@ class ItemEditDialog : DialogFragment() {
             requireActivity().layoutInflater.inflate(R.layout.item_edit_dialog, null)
 
         binding = ItemEditDialogBinding.inflate(LayoutInflater.from(context))
-
-
-//        requireActivity().onBackPressedDispatcher.addCallback(
-//            viewLifecycleOwner,
-//            object : OnBackPressedCallback(true) {
-//                override fun handleOnBackPressed() {
-//                    saveAndReturn()
-//                }
-//            }
-//        )
-
 
         viewModel.currentItem.observe(this, Observer {
 
@@ -84,36 +63,6 @@ class ItemEditDialog : DialogFragment() {
                 getString(R.string.edit_item)
             }
 
-//        // Build the dialog
-//        binding.etItemName.setText(
-//            if (args.itemId == NEW_ITEM_ID) getString(R.string.new_item) else viewModel.currentItem.value?.nameString
-//        )
-//        binding.etDuration.setText(viewModel.currentItem.value?.duration.toString() ?: "")
-//        binding.cbPauseafter.isChecked = viewModel.currentItem.value?.pauseAfter ?: false
-
-
-
-
-
-
-
-//        binding.etItemName.setText(
-//            if (args.itemId == NEW_ITEM_ID) getString(R.string.new_item) else args.itemName
-//        )
-//        binding.etDuration.setText(args.itemDuration.toString() ?: "")
-//        binding.cbPauseafter.isChecked = args.itemPauseAfter ?: false
-
-
-
-
-
-
-//        binding.etItemName.hint = if (args.ItemId !== NEW_ENTITY_ID) {
-//            "new name"}
-
-//        DialogOlaBookingConfirmedBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout. dialog_ola_booking_confirmed, null, false);
-//        setContentView(binding.getRoot());
-//        binding.setViewModel(new ViewModel(this, event.olaBooking));
 
         val builder = AlertDialog.Builder(requireActivity())
         builder.setTitle("")
