@@ -56,5 +56,8 @@
         <argument
             android:name="item_id"
             app:argType="long" />
+        <action
+            android:id="@+id/action_timerFragment_self"
+            app:destination="@id/timerFragment" />
     </fragment>
 </navigation>

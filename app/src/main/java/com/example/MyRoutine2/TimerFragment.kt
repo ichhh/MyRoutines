@@ -6,8 +6,10 @@ import android.os.Handler
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.MyRoutine2.databinding.ItemsFragmentBinding
 import com.example.MyRoutine2.databinding.TimerFragmentBinding
@@ -17,12 +19,15 @@ import com.example.MyRoutine2.viewmodel.ItemEditDialogViewModel
 import com.example.MyRoutine2.viewmodel.ItemsFragmentViewModel
 import com.example.MyRoutine2.viewmodel.TimerFragmentViewModel
 
-
 class TimerFragment : Fragment() {
 
     var countingDown: Boolean = false
     val handler = Handler()
     var timeValue: Int = 0
+    var pauseAfter = false
+
+    var prevItemId:Long? = null
+    var nextItemId:Long? = null
 
 
     private lateinit var binding: TimerFragmentBinding
@@ -36,34 +41,45 @@ class TimerFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
 
-//        var time = 0;
-
-
         viewModel = ViewModelProvider(this).get(TimerFragmentViewModel::class.java)
 
-        viewModel.currentItem.observe(viewLifecycleOwner, Observer {
-
+        viewModel.currentItem.observe(viewLifecycleOwner, {
             binding.tvName.setText(
                 savedInstanceState?.getString(ITEM_NAME_KEY) ?: it.nameString
             )
 
+            pauseAfter = it.pauseAfter
+            setTimer(it.duration!!.toInt() )
+        })
+
+        viewModel.prevItem.observe(viewLifecycleOwner, {
             binding.tvPrevItem.setText(
-                savedInstanceState?.getString(ITEM_NAME_KEY_PREVIOUS) ?: viewModel.prevItemName
-            )
-            binding.tvNextItem.setText(
-                savedInstanceState?.getString(ITEM_NAME_KEY_NEXT) ?: viewModel.nextItemName
+//                savedInstanceState?.getString(ITEM_NAME_KEY_PREVIOUS) ?: it.nameString
+            it?.nameString
             )
 
-            setTimer(it.duration!!.toInt() )
+            if (it==null)
+                binding.bPrevious.visibility = INVISIBLE
+            else
+                prevItemId = it.id
 
         })
-        viewModel.getItemById(args.itemId)
 
+        viewModel.nextItem.observe(viewLifecycleOwner, {
+            binding.tvNextItem.setText(
+                it?.nameString
+//                savedInstanceState?.getString(ITEM_NAME_KEY_NEXT) ?: it.nameString
+            )
+            if (it==null)
+                binding.bNext.visibility = INVISIBLE
+                else
+                    nextItemId = it.id
+        })
+
+        viewModel.getItemById(args.itemId)
 
         // return inflater.inflate(R.layout.main_fragment, container, false)
         binding = TimerFragmentBinding.inflate(inflater,container,false)
-
-
 
 
         val runnable = object : Runnable {
@@ -78,9 +94,7 @@ class TimerFragment : Fragment() {
 
                 handler.postDelayed(this, 1000)
                 if (timeValue==0) {
-                    handler.removeCallbacks(this)
-                    binding.bPlayPause.text = "START"
-                    countingDown = false
+                    stopCounting(this)
                 } else {
                     timeValue--
                 }
@@ -88,19 +102,55 @@ class TimerFragment : Fragment() {
             }
         }
 
-        binding.bPlayPause.setOnClickListener(View.OnClickListener {
+        binding.bPlayPause.setOnClickListener {
             if (countingDown) {
-                handler.removeCallbacks(runnable)
-                binding.bPlayPause.text = "PAUSE"
-                countingDown = false
+                stopCounting(runnable)
             } else {
-                handler.post(runnable)
-                binding.bPlayPause.text = "START"
-                countingDown = true
+                startCounting(runnable)
             }
-        })
+        }
+
+        binding.bNext.setOnClickListener {
+            goNext()
+        }
+
+        binding.bPrevious.setOnClickListener {
+
+            prevItemId?.let {
+                val action = TimerFragmentDirections.actionTimerFragmentSelf(prevItemId!!)
+                findNavController().navigate(action)
+            }
+        }
+
+        startCounting(runnable)
 
         return binding.root
+    }
+
+    private fun startCounting(runnable: Runnable) {
+        handler.post(runnable)
+        binding.bPlayPause.text = getString(R.string.pause)
+        countingDown = true
+    }
+
+    private fun stopCounting(runnable: Runnable) {
+        handler.removeCallbacks(runnable)
+        binding.bPlayPause.text = getString(R.string.start)
+        countingDown = false
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+//        viewModel = ViewModelProvider(this).get(TimerFragmentViewModel::class.java)
+        // TODO: Use the ViewModel
+    }
+
+    private fun goNext() {
+        nextItemId?.let {
+
+            val action = TimerFragmentDirections.actionTimerFragmentSelf(nextItemId!!)
+            findNavController().navigate(action)
+        }
     }
 
     private fun setTimer( time: Int) {
@@ -110,6 +160,9 @@ class TimerFragment : Fragment() {
 
     private fun TimeToText(time: Int = 0): String {
         if (time == 0) {
+            if (!pauseAfter)
+                goNext()
+
             return "00:00:00"
         } else {
             val h = time / 3600
@@ -117,11 +170,6 @@ class TimerFragment : Fragment() {
             val s = time % 60
             return "%1$02d:%2$02d:%3$02d".format(h, m, s)
         }
-    }
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TimerFragmentViewModel::class.java)
-        // TODO: Use the ViewModel
     }
 
 }

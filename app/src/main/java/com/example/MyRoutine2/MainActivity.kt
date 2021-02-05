@@ -11,10 +11,9 @@ class MainActivity : AppCompatActivity() {
 }
 
 
+// TODO: 05.02.2021 bNext and bPrevious visibility
+// TODO: 05.02.2021 run on open
 
-
-
-// TODO: 24.01.2021 click→timerFreagment→timeSetting
 // TODO: 08.01.2021 RV in RV 
 
 // TODO: 24.01.2021 private val database = AppDatabase.getInstance(app) once in the app (now its in every VM)

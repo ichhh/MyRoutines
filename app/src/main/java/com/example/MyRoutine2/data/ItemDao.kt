@@ -18,6 +18,10 @@ interface ItemDao {
     //@Query("SELECT * FROM items ORDER BY id ASC")
     fun getAll(): LiveData<List<ItemEntity>>
 
+    @Query("SELECT * FROM items")
+    //@Query("SELECT * FROM items ORDER BY id ASC")
+    fun getAllValues(): List<ItemEntity>
+
     @Query("SELECT * FROM items WHERE id = :id")
     fun getItemById(id: Long): ItemEntity?
 
