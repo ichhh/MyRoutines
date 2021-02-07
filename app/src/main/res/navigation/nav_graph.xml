@@ -26,6 +26,9 @@
         <action
             android:id="@+id/action_itemsFragment_to_timerFragment"
             app:destination="@id/timerFragment" />
+        <argument
+            android:name="program_id"
+            app:argType="integer" />
     </fragment>
     <dialog
         android:id="@+id/itemEditDialog"
@@ -67,4 +70,26 @@
         android:id="@+id/scoreDialog"
         android:name="com.example.MyRoutine2.dialog.ScoreDialog"
         android:label="ScoreDialog" />
+    <fragment
+        android:id="@+id/programsFragment"
+        android:name="com.example.MyRoutine2.ProgramsFragment"
+        android:label="ProgramsFragment" >
+        <action
+            android:id="@+id/action_programsFragment_to_itemsFragment"
+            app:destination="@id/itemsFragment" />
+        <action
+            android:id="@+id/action_programsFragment_to_programEditDialog"
+            app:destination="@id/programEditDialog" />
+    </fragment>
+    <fragment
+        android:id="@+id/programEditDialog"
+        android:name="com.example.MyRoutine2.dialog.ProgramEditDialog"
+        android:label="ProgramEditDialog" >
+        <argument
+            android:name="programId"
+            app:argType="integer" />
+        <argument
+            android:name="programName"
+            app:argType="string" />
+    </fragment>
 </navigation>

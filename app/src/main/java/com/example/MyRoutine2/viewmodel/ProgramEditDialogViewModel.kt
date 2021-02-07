@@ -52,7 +52,7 @@ class ProgramEditDialogViewModel(app: Application) : AndroidViewModel(app) {
                 }
                 else
                 {program = database?.programDao()?.getProgramById(programId)
-                    program?.name = programName}
+                    program?.nameString = programName}
 
                 database?.programDao()?.insertProgram(program!!)
              }

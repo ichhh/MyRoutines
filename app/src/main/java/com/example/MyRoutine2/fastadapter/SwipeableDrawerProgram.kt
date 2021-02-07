@@ -16,17 +16,16 @@ import io.reactivex.functions.Consumer
 /**
  * Created by Robb on 2020-07-03
  */
-open class  SwipeableDrawerItem() :
-    AbstractItem<SwipeableDrawerItem.ViewHolder>(), ISwipeable, IDraggable {
+open class SwipeableDrawerProgram() :
+    AbstractItem<SwipeableDrawerProgram.ViewHolder>(), ISwipeable, IDraggable {
 
     var name: StringHolder? = null
-    var description: StringHolder? = null
     var duration: Long? = null
-    var pauseAfter: Boolean = false
 
 
-    var deleteAction: Consumer<SwipeableDrawerItem>? = null
-    var editAction: Consumer<SwipeableDrawerItem>? = null
+
+    var deleteAction: Consumer<SwipeableDrawerProgram>? = null
+    var editAction: Consumer<SwipeableDrawerProgram>? = null
 //    var shareAction: Consumer<SwipeableDrawerItem>? = null
     override var isSwipeable = true
     override var isDraggable = true
@@ -48,32 +47,32 @@ open class  SwipeableDrawerItem() :
     override val layoutRes: Int
         get() = R.layout.swipeable_drawer_item
 
-    fun withName(Name: String): SwipeableDrawerItem {
+    fun withName(Name: String): SwipeableDrawerProgram {
         this.name = StringHolder(Name)
         return this
     }
 
-    fun withName(@StringRes NameRes: Int): SwipeableDrawerItem {
+    fun withName(@StringRes NameRes: Int): SwipeableDrawerProgram {
         this.name = StringHolder(NameRes)
         return this
     }
 
-    fun withDescription(description: String): SwipeableDrawerItem {
-        this.description = StringHolder(description)
-        return this
-    }
+//    fun withDescription(description: String): SwipeableDrawerProgram {
+//        this.description = StringHolder(description)
+//        return this
+//    }
+//
+//    fun withDescription(@StringRes descriptionRes: Int): SwipeableDrawerProgram {
+//        this.description = StringHolder(descriptionRes)
+//        return this
+//    }
 
-    fun withDescription(@StringRes descriptionRes: Int): SwipeableDrawerItem {
-        this.description = StringHolder(descriptionRes)
-        return this
-    }
-
-    fun withIsSwipeable(swipeable: Boolean): SwipeableDrawerItem {
+    fun withIsSwipeable(swipeable: Boolean): SwipeableDrawerProgram {
         this.isSwipeable = swipeable
         return this
     }
 
-    fun withIsDraggable(draggable: Boolean): SwipeableDrawerItem {
+    fun withIsDraggable(draggable: Boolean): SwipeableDrawerProgram {
         this.isDraggable = draggable
         return this
     }

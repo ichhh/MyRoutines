@@ -10,15 +10,14 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.MyRoutine2.databinding.ItemsFragmentBinding
-
-import com.example.MyRoutine2.viewmodel.ItemsFragmentViewModel
+import com.example.MyRoutine2.databinding.ProgramsFragmentBinding
 
 import com.example.MyRoutine2.fastadapter.IDraggableViewHolder
-import com.example.MyRoutine2.fastadapter.SwipeableDrawerItem
+import com.example.MyRoutine2.fastadapter.SwipeableDrawerProgram
 import com.example.MyRoutine2.model.ItemEntity
+import com.example.MyRoutine2.model.ProgramEntity
+import com.example.MyRoutine2.viewmodel.ProgramsFragmentViewModel
 import com.mikepenz.fastadapter.FastAdapter
-import com.mikepenz.fastadapter.IAdapter
 import com.mikepenz.fastadapter.adapters.FastItemAdapter
 import com.mikepenz.fastadapter.drag.ItemTouchCallback
 import com.mikepenz.fastadapter.drag.SimpleDragCallback
@@ -31,13 +30,13 @@ import io.reactivex.functions.Consumer
 //from activity to fragment
 class ProgramsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallback.ItemSwipeCallback {
 
-    private lateinit var viewModel: ItemsFragmentViewModel
-    private lateinit var binding: ItemsFragmentBinding
+    private lateinit var viewModel: ProgramsFragmentViewModel
+    private lateinit var binding: ProgramsFragmentBinding
 
     private lateinit var rv: RecyclerView
 
     //save our FastAdapter
-    private lateinit var fastItemDrawerAdapter: FastItemAdapter<SwipeableDrawerItem>
+    private lateinit var fastItemDrawerAdapter: FastItemAdapter<SwipeableDrawerProgram>
 
     //drag & drop
     private lateinit var touchCallback: SimpleDragCallback
@@ -49,8 +48,8 @@ class ProgramsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallba
         savedInstanceState: Bundle?
     ): View {
 
-        binding = ItemsFragmentBinding.inflate(inflater, container, false)
-        viewModel = ViewModelProvider(this).get(ItemsFragmentViewModel::class.java)
+        binding = ProgramsFragmentBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this).get(ProgramsFragmentViewModel::class.java)
 
         rv = binding.recyclerView
 //        setContentView(R.layout.activity_sample)
@@ -80,23 +79,23 @@ class ProgramsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallba
 
 
         //configure the itemAdapter
-        fastItemDrawerAdapter.itemFilter.filterPredicate = { item: SwipeableDrawerItem, constraint: CharSequence? ->
+        fastItemDrawerAdapter.itemFilter.filterPredicate = { item: SwipeableDrawerProgram, constraint: CharSequence? ->
             item.name?.textString.toString().contains(constraint.toString(), ignoreCase = true)
         }
 
         // just add an `EventHook` to your `FastAdapter` by implementing either a `ClickEventHook`, `LongClickEventHook`, `TouchEventHook`, `CustomEventHook`
-        fastItemDrawerAdapter.addEventHook(object : ClickEventHook<SwipeableDrawerItem>() {
+        fastItemDrawerAdapter.addEventHook(object : ClickEventHook<SwipeableDrawerProgram>() {
             override fun onBind(viewHolder: RecyclerView.ViewHolder): View? {
                 //return the views on which you want to bind this event
-                return if (viewHolder is SwipeableDrawerItem.ViewHolder) {
+                return if (viewHolder is SwipeableDrawerProgram.ViewHolder) {
                     viewHolder.itemContent
                 } else {
                     null
                 }
             }
 
-            override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<SwipeableDrawerItem>, item: SwipeableDrawerItem) {
-                findNavController().navigate(ItemsFragmentDirections.actionItemsFragmentToTimerFragment(item.identifier))
+            override fun onClick(v: View, position: Int, fastAdapter: FastAdapter<SwipeableDrawerProgram>, item: SwipeableDrawerProgram) {
+                findNavController().navigate(ProgramsFragmentDirections.actionProgramsFragmentToItemsFragment(item.identifier.toInt()))
 
             }
         })
@@ -107,12 +106,12 @@ class ProgramsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallba
         rv.adapter = fastItemDrawerAdapter
 
 
-        viewModel.itemsList?.observe(viewLifecycleOwner, {
+        viewModel.programsList?.observe(viewLifecycleOwner, {
             if (it.size==0) {
                 //fill with some sample data
                 viewModel.addSampleData()
             }
-            fastItemDrawerAdapter.set(itemToSwipeableDrawerItem(it ?: emptyList()))
+            fastItemDrawerAdapter.set(itemToSwipeableDrawerProgram(it ?: emptyList()))
         })
 
 
@@ -135,7 +134,7 @@ class ProgramsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallba
         fastItemDrawerAdapter.withSavedInstanceState(savedInstanceState)
 
         binding.fab.setOnClickListener {
-            editCreateItem(NEW_ITEM_ID)
+            editCreateProgram(NEW_ITEM_ID_INT,"")
         }
 
         //123
@@ -147,51 +146,52 @@ class ProgramsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallba
         return binding.root
     }
 
-    private fun editCreateItem(itemId: Long) {
+    private fun editCreateProgram(programId: Int, programName:String) {
 
-        val action = ItemsFragmentDirections
-            .actionItemsFragmentToItemEditDialog(itemId = itemId)
+        val action = ProgramsFragmentDirections
+            .actionProgramsFragmentToProgramEditDialog(programId,programName)
         findNavController().navigate(action)
     }
 
-    fun itemToSwipeableDrawerItem(items: List<ItemEntity>):List<SwipeableDrawerItem>{
+    fun itemToSwipeableDrawerProgram(items: List<ProgramEntity>):List<SwipeableDrawerProgram>{
 
-        val listOfSwipeable = mutableListOf<SwipeableDrawerItem>()
+        val listOfSwipeable = mutableListOf<SwipeableDrawerProgram>()
         var x = 0
         items.forEach {
 
-            val swipeableItem = SwipeableDrawerItem().withName("${it.nameString}")
-            swipeableItem.identifier = it.id
-            swipeableItem.duration = it.duration
-            swipeableItem.pauseAfter = it.pauseAfter
+            val swipeableProgram = SwipeableDrawerProgram().withName("${it.nameString}")
+            swipeableProgram.identifier = it.id.toLong()
 
-//                swipeableItem.withIsSwipeable(x % 5 != 0) //123
-//                swipeableItem.withIsDraggable(x % 5 != 0) //123
-            swipeableItem.withIsSwipeable(true)
-            swipeableItem.withIsDraggable(true)
+//                swipeableProgram.withIsSwipeable(x % 5 != 0) //123
+//                swipeableProgram.withIsDraggable(x % 5 != 0) //123
+            swipeableProgram.withIsSwipeable(true)
+            swipeableProgram.withIsDraggable(true)
 
-            swipeableItem.deleteAction = Consumer { item -> delete(item) }
-            swipeableItem.editAction = Consumer { item -> edit(item) }
+            swipeableProgram.deleteAction = Consumer { item -> delete(item) }
+            swipeableProgram.editAction = Consumer { item -> edit(item) }
             //swipeableItem.shareAction = Consumer { item -> share(item) }
-            listOfSwipeable.add(swipeableItem)
+            listOfSwipeable.add(swipeableProgram)
             x++
         }
 
         return listOfSwipeable
     }
 
-    fun swipeableDrawerItemToItem(itemsSwipeable: List<SwipeableDrawerItem>):List<ItemEntity>{
+    fun swipeableDrawerProgramToProgram(itemsSwipeable: List<SwipeableDrawerProgram>):List<ProgramEntity>{
 
-        var listOfItem = mutableListOf<ItemEntity>()
+        var listOfProgram = mutableListOf<ProgramEntity>()
 
         var x = 0
 
+        // TODO: 07.02.2021  !!!!!!!!!!!!!!
+        val itemsArray: MutableList<ItemEntity> = mutableListOf()
+        
         itemsSwipeable.forEach {
-            val item = ItemEntity(it.identifier,it.name.toString(),it.duration,it.pauseAfter)
-            listOfItem.add(item)
+            val item = ProgramEntity(it.identifier.toInt(),it.name.toString(),itemsArray)
+            listOfProgram.add(item)
         }
 
-        return listOfItem
+        return listOfProgram
     }
 
     override fun onSaveInstanceState(_outState: Bundle) {
@@ -245,7 +245,7 @@ class ProgramsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallba
 
 
 
-    private fun delete(item: SwipeableDrawerItem) {
+    private fun delete(item: SwipeableDrawerProgram) {
         item.deleteAction = null
         val position12 = fastItemDrawerAdapter.getAdapterPosition(item)
         if (position12 != RecyclerView.NO_POSITION) {
@@ -253,30 +253,21 @@ class ProgramsFragment : Fragment() , ItemTouchCallback, SimpleSwipeDrawerCallba
             fastItemDrawerAdapter.itemFilter.remove(position12)
             Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show()
 
-            viewModel.deleteItems(swipeableDrawerItemToItem(listOf(item))) //ich
+            viewModel.deletePrograms(swipeableDrawerProgramToProgram(listOf(item))) //ich
         }
     }
 
-    private fun edit(item: SwipeableDrawerItem) {
+    private fun edit(item: SwipeableDrawerProgram) {
         item.editAction = null
         val position12 = fastItemDrawerAdapter.getAdapterPosition(item)
         if (position12 != RecyclerView.NO_POSITION) {
-            editCreateItem(item.identifier)
+            editCreateProgram(item.identifier.toInt(),item.name.toString()) //!!!!!!!!!!!!!!!!!!!!!!!
         }
     }
 
-//    private fun share(item: SwipeableDrawerItem) {
-//        val position12 = fastItemDrawerAdapter.getAdapterPosition(item)
-//        if (position12 != RecyclerView.NO_POSITION) {
-//            // Do something intelligent here
-//            Toast.makeText(context, "Shared", Toast.LENGTH_SHORT).show()
-//        }
-//    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
+
 
     override fun itemTouchOnMove(oldPosition: Int, newPosition: Int): Boolean {
         DragDropUtil.onMove(fastItemDrawerAdapter.itemAdapter, oldPosition, newPosition)  // change position

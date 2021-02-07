@@ -1,12 +1,13 @@
 package com.example.MyRoutine2
 
 
-const val ITEM_DB_VERSION = 2
+const val ITEM_DB_VERSION = 3
 const val ITEM_DB_NAME = "items.db"
 
 const val TAG = "===Logging==="
 
 const val NEW_ITEM_ID = 0L
+const val NEW_ITEM_ID_INT = 0
 const val NEW_ENTITY_ID = 1
 
 const val ITEM_NAME_KEY = "ITEM_NAME_KEY"

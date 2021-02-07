@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ProgramFragmentViewModel(app: Application) : AndroidViewModel(app) {
+class ProgramsFragmentViewModel(app: Application) : AndroidViewModel(app) {
 
     private val database = AppDatabase.getInstance(app)
 
