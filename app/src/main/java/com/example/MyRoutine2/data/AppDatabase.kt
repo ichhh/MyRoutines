@@ -4,15 +4,21 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.chernov.ivan.myroutines.ProgramDao
 import com.example.MyRoutine2.ITEM_DB_NAME
 import com.example.MyRoutine2.ITEM_DB_VERSION
 import com.example.MyRoutine2.data.ItemDao
+import com.example.MyRoutine2.data.conventor.ConverterGson
+import com.example.MyRoutine2.data.conventor.DateConverter
 import com.example.MyRoutine2.model.ItemEntity
+import com.example.MyRoutine2.model.ProgramEntity
 
-@Database(entities = [ItemEntity::class], version = ITEM_DB_VERSION, exportSchema = false)
-//@TypeConverters(DateConverter::class)
-abstract class AppDatabase: RoomDatabase() {
+@Database(entities = [ProgramEntity::class,ItemEntity::class], version = ITEM_DB_VERSION, exportSchema = false)
+@TypeConverters(DateConverter::class, ConverterGson::class)
+abstract class AppDatabase : RoomDatabase() {
 
+    abstract fun programDao(): ProgramDao?
     abstract fun itemDao(): ItemDao?
 
     companion object {
@@ -25,8 +31,11 @@ abstract class AppDatabase: RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java,
                         ITEM_DB_NAME
-                    ).build()
+                    )
+                        .fallbackToDestructiveMigration() // TODO: 15.11.2020  provide a Migration in the builder
+                        .build()
                 }
+
             }
             return INSTANCE
         }
