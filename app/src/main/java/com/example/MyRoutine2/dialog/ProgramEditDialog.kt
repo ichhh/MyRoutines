@@ -1,98 +1,126 @@
 package com.example.MyRoutine2.dialog
 
+import android.app.Activity
 import android.app.Dialog
-import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.MyRoutine2.NEW_ENTITY_ID
-import com.example.MyRoutine2.R
+import com.example.MyRoutine2.*
 import com.example.MyRoutine2.databinding.ProgramEditDialogFragmentBinding
-
 import com.example.MyRoutine2.viewmodel.ProgramEditDialogViewModel
-import kotlinx.android.synthetic.main.program_edit_dialog_fragment.*
+
 
 class ProgramEditDialog : DialogFragment() {
 
     private lateinit var viewModel: ProgramEditDialogViewModel
-    private var mHost: ProgramEditDialogListener? = null
     private val args: ProgramEditDialogArgs by navArgs()
     private lateinit var binding: ProgramEditDialogFragmentBinding
 
-    interface ProgramEditDialogListener {
-        fun onProgramEditDialogResult(programId: Int)
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProvider(this).get(ProgramEditDialogViewModel::class.java)
+
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Create the custom layout using the LayoutInflater class
         val v =
-            requireActivity().layoutInflater.inflate(R.layout.program_edit_dialog_fragment, null)
+            requireActivity().layoutInflater.inflate(R.layout.item_edit_dialog, null)
 
-        val et = v?.findViewById<EditText>(R.id.et_ProgramName)
+        binding = ProgramEditDialogFragmentBinding.inflate(LayoutInflater.from(context))
 
-        // Build the dialog
-        val tempName =
-        if (args.programId == NEW_ENTITY_ID) {
-            getString(R.string.new_program)
+        viewModel.currentProgram.observe(this, Observer {
+
+            binding.etProgramName.setText(
+                savedInstanceState?.getString(ITEM_NAME_KEY) ?: it.nameString
+            )
+
+
+            binding.etProgramName.setSelection(savedInstanceState?.getInt(CURSOR_POSITION_KEY) ?: 0)
+        })
+        viewModel.getProgramById(args.programId)
+
+
+        requireActivity().title = if (args.programId == NEW_ITEM_ID_INT) {
+            getString(R.string.new_item)
         } else {
-            args.programName
+            getString(R.string.edit_item)
         }
 
-        et?.setText(tempName)
-
-
-//        binding.etProgramName.hint = if (args.programId !== NEW_ENTITY_ID) {
-//            "new name"}
-
-//        DialogOlaBookingConfirmedBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout. dialog_ola_booking_confirmed, null, false);
-//        setContentView(binding.getRoot());
-//        binding.setViewModel(new ViewModel(this, event.olaBooking));
 
         val builder = AlertDialog.Builder(requireActivity())
         builder.setTitle("")
-            .setView(v)
-//            .setView(binding.root)
+//            .setView(v)
+            .setView(binding.root)
             .setPositiveButton("OK") { dialog, which ->
-                viewModel.insertProgram(
-//                    v?.findViewById<EditText>(R.id.et_ProgramName)?.text.toString(),
-                    et?.text.toString(),
-                    args.programId
-                )
-                //viewModel.insertProgram(binding.etProgramName.text.toString(), NEW_ENTITY_ID)
-                //     .setNegativeButton("Cancel") { dialog, which -> Log.i(TAG, "Cancel clicked")
+                saveAndReturn()
+//                viewModel.insertProgram(
+//                    binding.etProgramName.text.toString(),
+//                    args.itemId,
+////                    getTimeInstance().parse(binding.etDuration.text.toString())?.time,
+//                    binding.etDuration.text.toString().toLong(),
+//                    binding.cbPauseafter.isChecked
+//                )
             }
+        //     .setNegativeButton("Cancel") { dialog, which -> Log.i(TAG, "Cancel clicked")
+
 
         return builder.create()
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mHost = activity as ProgramEditDialogListener
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+
+        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel = ViewModelProvider(this).get(ProgramEditDialogViewModel::class.java)
+
+
+
     }
 
-//    override fun onCreateView(
-//        inflater: LayoutInflater,
-//        container: ViewGroup?,
-//        savedInstanceState: Bundle?
-//    ): View? {
-//
-//        binding = ProgramEditDialogFragmentBinding.inflate(inflater,container,false)
-////        binding = ProgramEditDialogFragmentBinding.inflate(LayoutInflater.from(, R.layout.program_edit_dialog_fragment, null, false)
-//        return binding.root
-////        return super.onCreateView(inflater, container, savedInstanceState)
-//
-//    }
+    override fun onCancel(dialog: DialogInterface) {
+        super.onCancel(dialog)
+    }
 
+    private fun saveAndReturn(): Boolean {
+
+        val imm = requireActivity()
+            .getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.root.windowToken, 0)
+
+        viewModel.currentProgram.value?.nameString = binding.etProgramName.text.toString()
+//        viewModel.currentProgram.value?.duration = if (binding.etDuration?.text.toString() =="") 0L else binding.etDuration?.text.toString().toLong()
+//        viewModel.currentProgram.value?.pauseAfter = binding.cbPauseafter.isChecked
+
+        viewModel.updateProgram()
+
+        findNavController().navigateUp()
+        return true
+
+    }
 }
+
+//onAttach
+//onCreate
+//onCreateDialog
+//onCreateView
+//onActivityCreated
+//onStart
+//onResume

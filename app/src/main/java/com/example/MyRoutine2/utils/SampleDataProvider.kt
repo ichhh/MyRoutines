@@ -1,12 +1,15 @@
 package com.example.plainolitems4.utils
 
 
+import com.example.MyRoutine2.NEW_ITEM_ID_INT
 import com.example.MyRoutine2.model.ItemEntity
 import com.example.MyRoutine2.model.ProgramEntity
 
 class SampleDataProvider {
 
     companion object {
+
+        fun getEmptyProgram(name:String) = ProgramEntity(NEW_ITEM_ID_INT,name, mutableListOf())
 
         fun getItemsMap(): MutableMap<String, Long?> {
             var dummyItems = mutableMapOf<String, Long?>()

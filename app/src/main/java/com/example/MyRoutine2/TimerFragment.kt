@@ -9,15 +9,10 @@ import android.view.View
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.example.MyRoutine2.databinding.ItemsFragmentBinding
 import com.example.MyRoutine2.databinding.TimerFragmentBinding
-import com.example.MyRoutine2.dialog.ItemEditDialogArgs
-import com.example.MyRoutine2.model.ItemEntity
-import com.example.MyRoutine2.viewmodel.ItemEditDialogViewModel
-import com.example.MyRoutine2.viewmodel.ItemsFragmentViewModel
+
 import com.example.MyRoutine2.viewmodel.TimerFragmentViewModel
 
 class TimerFragment : Fragment() {

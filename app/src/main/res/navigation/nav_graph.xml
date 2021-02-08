@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/itemsFragment">
+    app:startDestination="@id/programsFragment">
 
     <fragment
         android:id="@+id/itemsFragment"
@@ -33,22 +33,21 @@
     <dialog
         android:id="@+id/itemEditDialog"
         android:name="com.example.MyRoutine2.dialog.ItemEditDialog"
-        android:label="ItemEditDialog"
-        tools:layout="@layout/item_edit_dialog">
+        android:label="ItemEditDialog">
         <argument
             android:name="item_id"
             app:argType="long" />
         <argument
             android:name="item_name"
-            app:argType="string"
-            android:defaultValue='""' />
+            android:defaultValue='""'
+            app:argType="string" />
         <argument
             android:name="item_duration"
             app:argType="integer" />
         <argument
             android:name="item_pause_after"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            android:defaultValue="false"
+            app:argType="boolean" />
 
     </dialog>
     <fragment
@@ -69,11 +68,13 @@
     <dialog
         android:id="@+id/scoreDialog"
         android:name="com.example.MyRoutine2.dialog.ScoreDialog"
-        android:label="ScoreDialog" />
+        android:label="ScoreDialog"
+        tools:layout="@layout/score_dialog"/>
     <fragment
         android:id="@+id/programsFragment"
         android:name="com.example.MyRoutine2.ProgramsFragment"
-        android:label="ProgramsFragment" >
+        android:label="ProgramsFragment"
+        tools:layout="@layout/programs_fragment">
         <action
             android:id="@+id/action_programsFragment_to_itemsFragment"
             app:destination="@id/itemsFragment" />
@@ -84,7 +85,8 @@
     <fragment
         android:id="@+id/programEditDialog"
         android:name="com.example.MyRoutine2.dialog.ProgramEditDialog"
-        android:label="ProgramEditDialog" >
+        android:label="ProgramEditDialog"
+        tools:layout="@layout/program_edit_dialog_fragment">
         <argument
             android:name="programId"
             app:argType="integer" />

@@ -1,18 +1,15 @@
-package com.example.MyRoutine2.viewmodel
+package com.example.MyRoutine2.viewmodel//package com.example.plainolitems4.del
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import com.example.MyRoutine2.NEW_ITEM_ID
+import com.example.MyRoutine2.NEW_ITEM_ID_INT
 
-import com.example.MyRoutine2.NEW_ENTITY_ID
-import com.example.MyRoutine2.model.ItemEntity
 import com.example.MyRoutine2.model.ProgramEntity
 import com.example.plainolitems4.data.AppDatabase
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -20,46 +17,66 @@ import kotlinx.coroutines.withContext
 class ProgramEditDialogViewModel(app: Application) : AndroidViewModel(app) {
 
     private val database = AppDatabase.getInstance(app)
+    val currentProgram = MutableLiveData<ProgramEntity>()
 
-    //val programsList = database?.programDao()?.getAll()
 
-    fun addSampleData() {
+    fun getProgramById(programId: Int) {
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                //val samplePrograms = SampleDataProvider.getPrograms()
-//                val samplePrograms = DummyContent.PROGRAMS_LIST
-//                database?.programDao()?.insertAll(samplePrograms)
-
-                //if it's new
-                //database?.programDao()?.getProgramById(progragId)
-                //else
-                //insertProgram?.programDao()?.getProgramById(progragId)
-
-
-
+                val program =
+                    if (programId != NEW_ITEM_ID_INT) {
+                        database?.programDao()?.getProgramById(programId)
+                    } else {
+                        ProgramEntity(programId,"", mutableListOf())
+                    }
+                currentProgram.postValue(program)
             }
         }
     }
 
-    fun insertProgram(programName: String, programId: Int) {
+    fun insertProgram(nameString: String, programId: Int, duration:Long? = null, pauseAfter: Boolean = false) {
         viewModelScope.launch {
             var program: ProgramEntity? = null
             withContext(Dispatchers.IO) {
-                if (programId == NEW_ENTITY_ID) {
-                    program = ProgramEntity(0,programName,
-                        mutableListOf<ItemEntity>()
-                    )
+                if (programId == NEW_ITEM_ID_INT) {
+
+                    program = ProgramEntity(NEW_ITEM_ID_INT,nameString, mutableListOf())
                 }
                 else
                 {program = database?.programDao()?.getProgramById(programId)
-                    program?.nameString = programName}
+                    program?.apply {
+                        this.nameString = nameString
+//                        this.duration = duration
+//                        this.pauseAfter = pauseAfter
+
+                    }}
 
                 database?.programDao()?.insertProgram(program!!)
-             }
+            }
         }
     }
 
+    fun updateProgram() {
+        currentProgram.value?.let {
+            it.nameString = it.nameString.trim()
+            if (it.id == NEW_ITEM_ID_INT && it.nameString.isEmpty()) {
+                return
+            }
 
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) {
+                    if (it.nameString.isEmpty()) {
+                        database?.programDao()?.deleteProgram(it)
+                    } else {
+                        database?.programDao()?.insertProgram(it)
+                    }
+                }
+            }
+
+        }
+
+
+    }
 
 
 }
